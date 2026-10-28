@@ -7,6 +7,7 @@ import TrendCharts from "./TrendCharts";
 import {calculateIntelligence} from "../lib/intelligence";
 import ValueIntelligence from "./ValueIntelligence";
 import ClubComparison from "./ClubComparison";
+import badgeUrls from "../data/club-badges.json";
 
 type SortKey="valueIndex"|"pointsPer100m"|"points"|"goalDifference"|"goalsFor"|"goalsAgainst"|"valueEurM"|"aboveExpected"|"ppgPercentile"|"valuePercentile";
 const COLORS:Record<LeagueCode,string>={PL:"#B8F26C",PD:"#F3BE72",SA:"#97A9FF",BL1:"#ED96AD",FL1:"#79D0D0"};
@@ -19,9 +20,16 @@ function exportTemplate(rows:TeamStats[]) {
   const href=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=href;
   a.download="valuations-template.json";a.click();URL.revokeObjectURL(href);
 }
-function DotChart({teams,selectedId,onSelect}:{teams:TeamStats[];selectedId:string|null;onSelect:(id:string)=>void}) {
+function DotChart({teams,selectedId,onSelect,showBadges}:{teams:TeamStats[];selectedId:string|null;onSelect:(id:string)=>void;showBadges:boolean}) {
+  const [failedBadges,setFailedBadges]=useState<Set<string>>(()=>new Set());
+  const markBadgeFailed=(id:string)=>setFailedBadges(previous=>{
+    if(previous.has(id))return previous;
+    const next=new Set(previous);next.add(id);return next;
+  });
   const valued=teams.filter(t=>t.valueEurM!==null && t.played>=3);
   const fit=valuePerformanceFit(valued);
+  // Draw the selected team last so its crest remains visible above overlapping clubs.
+  const pointOrder=[...valued].sort((a,b)=>Number(a.id===selectedId)-Number(b.id===selectedId));
   if(!valued.length)return <div className="empty-graph">Add dated squad values to see the performance vs value chart.</div>;
   const maxX=Math.max(200,...valued.map(t=>t.valueEurM!))*1.08;
   const maxY=3;
@@ -38,11 +46,30 @@ function DotChart({teams,selectedId,onSelect}:{teams:TeamStats[];selectedId:stri
         x2={x(maxX)} y2={y(Math.max(0,Math.min(3,fit.intercept+fit.slope*maxX)))}
         stroke="#f7e4ae" strokeWidth="2.5" strokeDasharray="8 5"/>
     </g>}
-    {valued.map(t=><circle key={`${t.league}-${t.id}`} cx={x(t.valueEurM!)} cy={y(t.points/t.played)} r={selectedId===t.id?9:Math.max(4,5+Math.max(-10,t.goalDifference)/6)}
-      fill={COLORS[t.league]} stroke={selectedId===t.id?"#ffffff":"#10231c"} strokeWidth={selectedId===t.id?3:1.5} opacity=".88"
-      className="chart-point" tabIndex={0} onClick={()=>onSelect(t.id)} onKeyDown={e=>{if(e.key==="Enter")onSelect(t.id)}}>
-      <title>{`${t.name}: ${(t.points/t.played).toFixed(2)} points/match across ${t.played} games, ${money(t.valueEurM)}, GD ${t.goalDifference>=0?"+":""}${t.goalDifference}`}</title>
-    </circle>)}
+    {pointOrder.map(t=>{
+      const selected=selectedId===t.id;
+      const src=(badgeUrls as Record<string,string>)[t.id];
+      const hasBadge=showBadges && !!src && !failedBadges.has(t.id);
+      const diameter=selected?34:25;
+      const r=selected?diameter/2+2:diameter/2;
+      const xPos=x(t.valueEurM!);
+      const yPos=y(t.points/t.played);
+      const label=t.name+": "+(t.points/t.played).toFixed(2)+" points/match across "+t.played+" games, "+money(t.valueEurM)+", GD "+(t.goalDifference>=0?"+":"")+t.goalDifference;
+      return <g key={t.id} className="chart-point" role="button" tabIndex={0} aria-label={"Select "+label} aria-pressed={selected}
+        onClick={()=>onSelect(t.id)}
+        onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();onSelect(t.id)}}}>
+        <title>{label}</title>
+        {/* Wider transparent hit target makes small crests usable on touch screens. */}
+        <circle cx={xPos} cy={yPos} r={Math.max(20,r+2)} fill="transparent" stroke="none" />
+        {selected&&<circle cx={xPos} cy={yPos} r={r+3} fill="none" stroke="#b8f26c" strokeWidth="2.5" />}
+        <circle cx={xPos} cy={yPos} r={hasBadge?r:Math.max(5,selected?10:6)}
+          fill={hasBadge?"#f5f7f2":COLORS[t.league]} stroke={selected?"#ffffff":"#10231c"}
+          strokeWidth={selected?2:1.5} opacity={hasBadge?1:0.96} />
+        {hasBadge&&<image href={src} x={xPos-diameter/2} y={yPos-diameter/2}
+          width={diameter} height={diameter} preserveAspectRatio="xMidYMid meet"
+          onError={()=>markBadgeFailed(t.id)} style={{pointerEvents:"none"}} />}
+      </g>;
+    })}
     <text x={W/2} y={H-1} textAnchor="middle" fill="#bacbc2" fontSize="12">Squad value (€ millions)</text>
     <text x={16} y={H/2} transform={`rotate(-90 16 ${H/2})`} textAnchor="middle" fill="#bacbc2" fontSize="12">Points per match</text>
   </svg>{fit&&<p className="scatter-baseline">Dashed benchmark: linear trend · {fit.count} valued clubs with 3+ results · Mean €{Math.round(fit.meanValue)}m squad value · {fit.meanPPG.toFixed(2)} points/match. Descriptive comparison, not a forecast.</p>}</div>;
@@ -55,6 +82,7 @@ export default function Home(){
   const [league,setLeague]=useState<string>("ALL");
   const [query,setQuery]=useState("");
   const [sort,setSort]=useState<SortKey>("points");
+  const [showBadges,setShowBadges]=useState(true);
   const [selected,setSelected]=useState<string|null>(null);
   const [latestLoaded,setLatestLoaded]=useState<string|null>(null);
   useEffect(()=>{
@@ -111,7 +139,12 @@ export default function Home(){
     {data?.freshness && <section className="freshness" aria-label="League data freshness">{data.freshness.map(f=><a key={f.league} href={f.sourceUrl} target="_blank" rel="noreferrer" className="freshness-item"><span>{LEAGUES.find(l=>l.code===f.league)?.name}</span><strong>{f.latestResult?`Last score ${new Date(f.latestResult+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short"})}`:"No scored games"}</strong><small>{f.outstandingPastFixtures} past fixtures missing scores ↗</small></a>)}</section>}
     <section className="filterbar"><div className="leaguebar"><button className={league==="ALL"?"active":""} onClick={()=>setLeague("ALL")}>All leagues</button>{LEAGUES.map(l=><button key={l.code} onClick={()=>setLeague(l.code)} className={league===l.code?"active":""}>{l.name}</button>)}</div><div className="filters"><input aria-label="Search club" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search club…"/><label>Rank by <select value={sort} onChange={e=>setSort(e.target.value as SortKey)}><option value="valueIndex">Adjusted Value Index</option><option value="aboveExpected">Overperformance PPG</option><option value="ppgPercentile">League form percentile</option><option value="valuePercentile">League value percentile</option><option value="pointsPer100m">Points / €100m</option><option value="points">Points</option><option value="goalDifference">Goal difference</option><option value="goalsFor">Goals scored</option><option value="goalsAgainst">Fewest conceded</option><option value="valueEurM">Squad value</option></select></label></div></section>
     <div className="workspace">
-      <section className="panel scatter"><div className="panel-title"><div><p className="eyebrow">VALUE V PERFORMANCE</p><h2>Are they worth their weight?</h2></div><span className="muted">Bubble size: goal difference · PPG adjusted for games played</span></div><DotChart teams={filtered} selectedId={selected} onSelect={setSelected}/><div className="legend">{LEAGUES.filter(l=>league==="ALL"||league===l.code).map(l=><span key={l.code}><i style={{background:COLORS[l.code]}}/>{l.name}</span>)}</div></section>
+      <section className="panel scatter"><div className="panel-title"><div><p className="eyebrow">VALUE V PERFORMANCE</p><h2>Are they worth their weight?</h2></div><div className="scatter-options"><span className="muted">Points per match · 2025/26 archived squad value</span>
+      <div className="scatter-mode" role="group" aria-label="Scatter plot marker style">
+        <button type="button" aria-pressed={showBadges} className={showBadges?"active":""} onClick={()=>setShowBadges(true)}>Club badges</button>
+        <button type="button" aria-pressed={!showBadges} className={!showBadges?"active":""} onClick={()=>setShowBadges(false)}>Dots</button>
+      </div>
+    </div></div><DotChart teams={filtered} selectedId={selected} onSelect={setSelected} showBadges={showBadges}/><div className="legend">{LEAGUES.filter(l=>league==="ALL"||league===l.code).map(l=><span key={l.code}><i style={{background:COLORS[l.code]}}/>{l.name}</span>)}</div></section>
       <section className="panel insight"><p className="eyebrow">CLUB DEEP DIVE</p><h2>{selectedRow?.name??"Select a club"}</h2><p className="muted">{selectedRow?LEAGUES.find(x=>x.code===selectedRow.league)?.name:""} · Last {selectedRow?.played??0} games</p>
         {selectedRow?<><div className="insight-stats"><div><b>{selectedRow.points}</b><span>Points</span></div><div><b>{selectedRow.goalsFor}–{selectedRow.goalsAgainst}</b><span>GF / GA</span></div><div><b>{money(selectedRow.valueEurM)}</b><span>Squad value</span></div><div><b>{number(selectedRow.valueIndex)}</b><span>Value index</span></div></div><div className="form">{selectedRow.form.slice().reverse().map((r,i)=><span className={r.result.toLowerCase()} key={`${r.date}-${i}`} title={`${r.opponent} (${r.venue}): ${r.goalsFor}–${r.goalsAgainst}`}>{r.result}</span>)}</div><div className="matchlist">{selectedRow.form.slice(0,5).map((r,i)=><div key={`${r.date}-${i}`}><span>{new Date(r.date).toLocaleDateString("en-GB",{day:"2-digit",month:"short"})} · {r.venue}</span><span>{r.opponent}</span><strong>{r.goalsFor}–{r.goalsAgainst}</strong></div>)}</div><p className="note">{selectedRow.valuationAsOf?(selectedRow.valuationSource?.includes("NOT verified date")?`Historic archive snapshot ${selectedRow.valuationAsOf} · individual club valuation date unknown`:`Value as of ${selectedRow.valuationAsOf}`):"Squad valuation not entered"}{selectedRow.valuationSource?` · Source: ${selectedRow.valuationSource}`:""}{selectedRow.provisional?" · Provisional: fewer than 10 games":""}</p></>:<div className="muted">No clubs available</div>}
       </section>
