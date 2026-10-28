@@ -1,1 +1,458 @@
-{}
+{
+  "BL1:1. FC Köln": {
+    "valueEurM": 154.05,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 30 positive-value players with last_season>=2025 linked via current_club_id=3; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:1. FC Union Berlin": {
+    "valueEurM": 129.8,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=89; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:1. FSV Mainz 05": {
+    "valueEurM": 143.5,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=39; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:Bayer 04 Leverkusen": {
+    "valueEurM": 426.55,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=15; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:Borussia Dortmund": {
+    "valueEurM": 519.25,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=16; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:Borussia Mönchengladbach": {
+    "valueEurM": 154.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=18; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:Eintracht Frankfurt": {
+    "valueEurM": 373.55,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=24; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:FC Augsburg": {
+    "valueEurM": 149.35,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=167; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:FC Bayern München": {
+    "valueEurM": 974.65,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=27; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:Hamburger SV": {
+    "valueEurM": 124.3,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=41; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:RB Leipzig": {
+    "valueEurM": 577.55,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 35 positive-value players with last_season>=2025 linked via current_club_id=23826; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:SC Freiburg": {
+    "valueEurM": 248.47,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=60; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:SV Werder Bremen": {
+    "valueEurM": 178.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 34 positive-value players with last_season>=2025 linked via current_club_id=86; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:TSG 1899 Hoffenheim": {
+    "valueEurM": 277.8,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=533; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "BL1:VfB Stuttgart": {
+    "valueEurM": 406.9,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 32 positive-value players with last_season>=2025 linked via current_club_id=79; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:AJ Auxerre": {
+    "valueEurM": 119.8,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=290; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:AS Monaco FC": {
+    "valueEurM": 369.25,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=162; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Angers SCO": {
+    "valueEurM": 94.3,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 25 positive-value players with last_season>=2025 linked via current_club_id=1420; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:FC Lorient": {
+    "valueEurM": 130.75,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=1158; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Le Havre AC": {
+    "valueEurM": 76.4,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 30 positive-value players with last_season>=2025 linked via current_club_id=738; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:OGC Nice": {
+    "valueEurM": 181.75,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=417; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Olympique de Marseille": {
+    "valueEurM": 483.75,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 37 positive-value players with last_season>=2025 linked via current_club_id=244; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Paris FC": {
+    "valueEurM": 121.75,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=10004; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Paris Saint-Germain FC": {
+    "valueEurM": 1363.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 24 positive-value players with last_season>=2025 linked via current_club_id=583; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:RC Strasbourg Alsace": {
+    "valueEurM": 398.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=667; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Racing Club de Lens": {
+    "valueEurM": 239.4,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=826; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Stade Brestois 29": {
+    "valueEurM": 94.85,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=3911; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "FL1:Toulouse FC": {
+    "valueEurM": 155.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 24 positive-value players with last_season>=2025 linked via current_club_id=415; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:CA Osasuna": {
+    "valueEurM": 102.12,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=331; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Club Atlético de Madrid": {
+    "valueEurM": 497.9,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=13; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Deportivo Alavés": {
+    "valueEurM": 74.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=1108; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Elche CF": {
+    "valueEurM": 110.62,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=1531; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:FC Barcelona": {
+    "valueEurM": 1170.3,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=131; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Getafe CF": {
+    "valueEurM": 88.28,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=3709; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Levante UD": {
+    "valueEurM": 113.15,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=3368; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:RC Celta de Vigo": {
+    "valueEurM": 190.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=940; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:RCD Espanyol de Barcelona": {
+    "valueEurM": 122.3,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=714; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Rayo Vallecano de Madrid": {
+    "valueEurM": 89.53,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=367; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Real Betis Balompié": {
+    "valueEurM": 231.53,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 30 positive-value players with last_season>=2025 linked via current_club_id=150; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Real Madrid CF": {
+    "valueEurM": 1262.05,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 32 positive-value players with last_season>=2025 linked via current_club_id=418; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Real Sociedad de Fútbol": {
+    "valueEurM": 250.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 30 positive-value players with last_season>=2025 linked via current_club_id=681; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Sevilla FC": {
+    "valueEurM": 165.15,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 32 positive-value players with last_season>=2025 linked via current_club_id=368; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Valencia CF": {
+    "valueEurM": 115.97,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=1049; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PD:Villarreal CF": {
+    "valueEurM": 356.8,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 35 positive-value players with last_season>=2025 linked via current_club_id=1050; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:AFC Bournemouth": {
+    "valueEurM": 541.1,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=989; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Arsenal FC": {
+    "valueEurM": 1281.05,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=11; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Aston Villa FC": {
+    "valueEurM": 464.7,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=405; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Brentford FC": {
+    "valueEurM": 487.57,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 32 positive-value players with last_season>=2025 linked via current_club_id=1148; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Brighton & Hove Albion FC": {
+    "valueEurM": 530.6,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=1237; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Chelsea FC": {
+    "valueEurM": 1166.1,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 35 positive-value players with last_season>=2025 linked via current_club_id=631; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Crystal Palace FC": {
+    "valueEurM": 435.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=873; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Everton FC": {
+    "valueEurM": 438.6,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=29; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Fulham FC": {
+    "valueEurM": 285.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 22 positive-value players with last_season>=2025 linked via current_club_id=931; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Leeds United FC": {
+    "valueEurM": 361.3,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=399; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Liverpool FC": {
+    "valueEurM": 980.1,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 35 positive-value players with last_season>=2025 linked via current_club_id=31; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Manchester City FC": {
+    "valueEurM": 1383.8,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=281; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Manchester United FC": {
+    "valueEurM": 722.6,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 28 positive-value players with last_season>=2025 linked via current_club_id=985; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Newcastle United FC": {
+    "valueEurM": 698.65,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 32 positive-value players with last_season>=2025 linked via current_club_id=762; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Nottingham Forest FC": {
+    "valueEurM": 534.8,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 25 positive-value players with last_season>=2025 linked via current_club_id=703; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Sunderland AFC": {
+    "valueEurM": 382.62,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=289; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "PL:Tottenham Hotspur FC": {
+    "valueEurM": 755.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 33 positive-value players with last_season>=2025 linked via current_club_id=148; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:AC Milan": {
+    "valueEurM": 462.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 25 positive-value players with last_season>=2025 linked via current_club_id=5; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:ACF Fiorentina": {
+    "valueEurM": 223.62,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 30 positive-value players with last_season>=2025 linked via current_club_id=430; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Atalanta BC": {
+    "valueEurM": 412.85,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 27 positive-value players with last_season>=2025 linked via current_club_id=800; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Bologna FC 1909": {
+    "valueEurM": 251.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 30 positive-value players with last_season>=2025 linked via current_club_id=1025; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Cagliari Calcio": {
+    "valueEurM": 149.7,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 34 positive-value players with last_season>=2025 linked via current_club_id=1390; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Como 1907": {
+    "valueEurM": 395.45,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=1047; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:FC Internazionale Milano": {
+    "valueEurM": 618.95,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=46; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Genoa CFC": {
+    "valueEurM": 140.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 25 positive-value players with last_season>=2025 linked via current_club_id=252; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Juventus FC": {
+    "valueEurM": 535.23,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 31 positive-value players with last_season>=2025 linked via current_club_id=506; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Parma Calcio 1913": {
+    "valueEurM": 143.45,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 26 positive-value players with last_season>=2025 linked via current_club_id=130; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:SSC Napoli": {
+    "valueEurM": 456.1,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 34 positive-value players with last_season>=2025 linked via current_club_id=6195; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Torino FC": {
+    "valueEurM": 141.2,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 35 positive-value players with last_season>=2025 linked via current_club_id=416; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:US Lecce": {
+    "valueEurM": 124.97,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 32 positive-value players with last_season>=2025 linked via current_club_id=1005; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:US Sassuolo Calcio": {
+    "valueEurM": 195.95,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 34 positive-value players with last_season>=2025 linked via current_club_id=6574; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  },
+  "SA:Udinese Calcio": {
+    "valueEurM": 181.0,
+    "asOf": "2026-07-06",
+    "dateBasis": "archive snapshot; individual club valuation date not supplied",
+    "source": "dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of 29 positive-value players with last_season>=2025 linked via current_club_id=410; archive snapshot 2026-07-06 (NOT verified date of club valuation); latest individual player valuation anywhere 2026-06-12; values in EUR"
+  }
+}

@@ -2,7 +2,7 @@
 
 A responsive 2026/27 dashboard comparing **the last ten completed domestic league matches** for all clubs in England's Premier League, Spain's La Liga, Italy's Serie A, Germany's Bundesliga and France's Ligue 1.
 
-**Status: a locally tested project starter, not yet a deployed live site.** Public-domain football match data requires **no API key**. The web app retrieves real match feeds from GitHub when opened, with a one-hour cache. The upstream 2026/27 result files may lag by weeks and are not guaranteed to be comprehensive; per-league freshness warnings expose that. **Squad values are not currently populated.** There are no fictional football results or valuations in the live dashboard.
+**Status: deployed to Vercel; historical squad-value benchmark added in feature branch for review.** Public-domain football match data requires **no API key**. The web app retrieves real match feeds from GitHub when opened, with a one-hour cache. The upstream 2026/27 result files may lag by weeks and are not guaranteed to be comprehensive; per-league freshness warnings expose that. **The historical benchmark currently populates 76/96 clubs with dated archival estimates. These are NOT 2026/27 valuations.** There are no fictional football results or valuations in the live dashboard.
 
 ## Stack and data flow
 
@@ -36,8 +36,8 @@ React mobile-first web dashboard on Vercel (after you deploy)
 2. Create a branch called `feature/open-football-dashboard` before uploading or applying changes. Use GitHub web uploads or Codex to add *all* project files (including the `.github` directory) at the repository root. The contents of the ZIP belong at the top level, not in a nested folder.
 3. Open a pull request into `main` but **do not merge yet**. The included GitHub Actions workflow runs Python checks, audits the OpenFootball feeds, and runs the UI calculation tests/build. Read the PR checks and reports.
 4. Once tests are green, sign in to [Vercel](https://vercel.com/new), import `football-value-index`, select Next.js and use the default root directory. **Test the feature branch as a preview**. Nothing requires a key or secret. Only merge and publish production when you're happy with the values and data quality.
-5. The app will show actual completed results from OpenFootball. **By design, Value Index and value-per-point rankings remain blank until values are provided.** On the dashboard click *Download valuation template*, fill in `data/valuations.json` on the feature branch and re-test the PR/preview.
-6. For each team, enter a value in **€ millions** (`250` means €250 million), the source, and the actual date the estimate refers to. If valuations are from different dates or seasons, the league-wide ranking is **not directly comparable**. Never label 2025/26 valuations as current 2026/27 values.
+5. The app will show actual completed results from OpenFootball. The historical benchmark currently covers **76 of 96** clubs. Value Index and points per €100m appear only for clubs with eligible historical valuations. Review the provenance/audit in `docs/historical-valuations.md` before merging the feature branch.
+6. The historical values are archived 2025/26 player-value sums in **€ millions**. Their `asOf` field marks the **6 July 2026 archive snapshot**, not the date each individual club was assessed. Never label these as current 2026/27 values.
 
 To run locally on a computer with Node.js 22+:
 
@@ -58,7 +58,7 @@ python scripts/open_data_audit.py --output open-data-audit.json
 
 ## Valuations JSON file
 
-`data/valuations.json` is intentionally `{}` until a verifiable valuation source is selected. Example of **format only — this is NOT a real valuation**:
+`data/valuations.json` now includes 76 historical squad-value estimates derived from the archived player table. See `docs/historical-valuations.md` and `data/historical-valuation-audit.json`. Below is a **format example, not a reported real value**:
 
 ```json
 {
@@ -70,7 +70,7 @@ python scripts/open_data_audit.py --output open-data-audit.json
 }
 ```
 
-In your actual dataset, use the IDs downloaded from the app (e.g. `PL:Arsenal FC`), not IDs from another API. No market-value scraping is built in. Historical data from [dcaribou/transfermarkt-datasets](https://github.com/dcaribou/transfermarkt-datasets) could be used as a **clearly labelled historical snapshot** where redistribution rights permit, but that dataset's 2026/27 squads are missing and its value feed is paused as of July 2026. Avoid presenting it as current data.
+The historical importer uses `players.csv.gz` and `clubs.csv.gz` from [dcaribou/transfermarkt-datasets](https://github.com/dcaribou/transfermarkt-datasets), matching club IDs to OpenFootball and summing positive player market values from 2025/26 entries. The archive's 2026/27 squads are missing, and the archive date is not an individual valuation date. **No direct Transfermarkt scraping is used.** Missing or mismatched clubs stay blank.
 
 ## Metric definitions
 
@@ -110,7 +110,7 @@ The workflow has **read-only repository permissions**, uses **no secrets** and *
 | `app/api/dashboard/route.ts` | Combines live open-data fetches with dated valuations and freshness metadata. |
 | `app/page.tsx` | Mobile dashboard, filters, scatter plot, rankings, team drill-downs, template export. |
 | `app/globals.css` | Mobile and desktop layout and visual theme. |
-| `data/valuations.json` | Source-attributed market value snapshots, intentionally empty initially. |
+| `data/valuations.json` | Historical market-value estimates, 76/96 clubs, with dated snapshot and source. |
 | `scripts/open_data_audit.py` | Python independent analysis and integrity report. |
 | `tests/` | Tests for result parsing, points, last-ten windows, and value calculations. |
 | `.github/workflows/open-data-audit.yml` | Daily, PR and push automation, read-only and no secrets. |
