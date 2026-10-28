@@ -4,8 +4,11 @@ import type {DashboardData, TeamStats, LeagueCode} from "../lib/metrics";
 import {LEAGUES} from "../lib/metrics";
 import {valuePerformanceFit} from "../lib/trends";
 import TrendCharts from "./TrendCharts";
+import {calculateIntelligence} from "../lib/intelligence";
+import ValueIntelligence from "./ValueIntelligence";
+import ClubComparison from "./ClubComparison";
 
-type SortKey="valueIndex"|"pointsPer100m"|"points"|"goalDifference"|"goalsFor"|"goalsAgainst"|"valueEurM";
+type SortKey="valueIndex"|"pointsPer100m"|"points"|"goalDifference"|"goalsFor"|"goalsAgainst"|"valueEurM"|"aboveExpected"|"ppgPercentile"|"valuePercentile";
 const COLORS:Record<LeagueCode,string>={PL:"#B8F26C",PD:"#F3BE72",SA:"#97A9FF",BL1:"#ED96AD",FL1:"#79D0D0"};
 const money=(v:number|null)=>v===null?"—":`€${v.toLocaleString("en-GB",{maximumFractionDigits:0})}m`;
 const number=(n:number|null,d=1)=>n===null?"—":n.toFixed(d);
@@ -67,15 +70,21 @@ export default function Home(){
     void load();const interval=setInterval(()=>{void load();},60*60*1000);
     return ()=>{active=false;clearInterval(interval)};
   },[]);
+  const intelligence=useMemo(()=>calculateIntelligence(data?.teams??[]),[data]);
   const filtered=useMemo(()=>{
     if(!data)return [];
     return data.teams.filter(t=>(league==="ALL"||t.league===league)&&t.name.toLowerCase().includes(query.toLowerCase().trim()))
       .sort((a,b)=>{
-        const av=sort==="goalsAgainst"?-a.goalsAgainst:safeValue(a[sort]);
-        const bv=sort==="goalsAgainst"?-b.goalsAgainst:safeValue(b[sort]);
-        return bv-av||b.points-a.points||a.name.localeCompare(b.name);
+        const read=(t:TeamStats)=>{
+          if(sort==="goalsAgainst")return -t.goalsAgainst;
+          if(sort==="aboveExpected")return safeValue(intelligence[t.id]?.aboveExpected??null);
+          if(sort==="ppgPercentile")return safeValue(intelligence[t.id]?.ppgPercentile??null);
+          if(sort==="valuePercentile")return safeValue(intelligence[t.id]?.valuePercentile??null);
+          return safeValue(t[sort]);
+        };
+        return read(b)-read(a)||b.points-a.points||a.name.localeCompare(b.name);
       });
-  },[data,league,query,sort]);
+  },[data,league,query,sort,intelligence]);
   const qualified=filtered.filter(t=>t.valueEurM!==null);
   const topScorer=[...filtered].sort((a,b)=>b.goalsFor-a.goalsFor)[0];
   const mostEfficient=[...filtered].filter(t=>t.valueIndex!==null).sort((a,b)=>b.valueIndex!-a.valueIndex!)[0];
@@ -100,7 +109,7 @@ export default function Home(){
       <div className="metric"><span>MOST GOALS</span><strong>{topScorer?.goalsFor??"—"}</strong><small>{topScorer?.name??"Not loaded"}</small></div>
     </section>
     {data?.freshness && <section className="freshness" aria-label="League data freshness">{data.freshness.map(f=><a key={f.league} href={f.sourceUrl} target="_blank" rel="noreferrer" className="freshness-item"><span>{LEAGUES.find(l=>l.code===f.league)?.name}</span><strong>{f.latestResult?`Last score ${new Date(f.latestResult+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short"})}`:"No scored games"}</strong><small>{f.outstandingPastFixtures} past fixtures missing scores ↗</small></a>)}</section>}
-    <section className="filterbar"><div className="leaguebar"><button className={league==="ALL"?"active":""} onClick={()=>setLeague("ALL")}>All leagues</button>{LEAGUES.map(l=><button key={l.code} onClick={()=>setLeague(l.code)} className={league===l.code?"active":""}>{l.name}</button>)}</div><div className="filters"><input aria-label="Search club" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search club…"/><label>Rank by <select value={sort} onChange={e=>setSort(e.target.value as SortKey)}><option value="valueIndex">Adjusted Value Index</option><option value="pointsPer100m">Points / €100m</option><option value="points">Points</option><option value="goalDifference">Goal difference</option><option value="goalsFor">Goals scored</option><option value="goalsAgainst">Fewest conceded</option><option value="valueEurM">Squad value</option></select></label></div></section>
+    <section className="filterbar"><div className="leaguebar"><button className={league==="ALL"?"active":""} onClick={()=>setLeague("ALL")}>All leagues</button>{LEAGUES.map(l=><button key={l.code} onClick={()=>setLeague(l.code)} className={league===l.code?"active":""}>{l.name}</button>)}</div><div className="filters"><input aria-label="Search club" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search club…"/><label>Rank by <select value={sort} onChange={e=>setSort(e.target.value as SortKey)}><option value="valueIndex">Adjusted Value Index</option><option value="aboveExpected">Overperformance PPG</option><option value="ppgPercentile">League form percentile</option><option value="valuePercentile">League value percentile</option><option value="pointsPer100m">Points / €100m</option><option value="points">Points</option><option value="goalDifference">Goal difference</option><option value="goalsFor">Goals scored</option><option value="goalsAgainst">Fewest conceded</option><option value="valueEurM">Squad value</option></select></label></div></section>
     <div className="workspace">
       <section className="panel scatter"><div className="panel-title"><div><p className="eyebrow">VALUE V PERFORMANCE</p><h2>Are they worth their weight?</h2></div><span className="muted">Bubble size: goal difference · PPG adjusted for games played</span></div><DotChart teams={filtered} selectedId={selected} onSelect={setSelected}/><div className="legend">{LEAGUES.filter(l=>league==="ALL"||league===l.code).map(l=><span key={l.code}><i style={{background:COLORS[l.code]}}/>{l.name}</span>)}</div></section>
       <section className="panel insight"><p className="eyebrow">CLUB DEEP DIVE</p><h2>{selectedRow?.name??"Select a club"}</h2><p className="muted">{selectedRow?LEAGUES.find(x=>x.code===selectedRow.league)?.name:""} · Last {selectedRow?.played??0} games</p>
@@ -108,7 +117,9 @@ export default function Home(){
       </section>
     </div>
     <TrendCharts selected={selectedRow??null} trends={data?.trends} />
-    <section className="panel rankings"><div className="panel-title"><div><p className="eyebrow">CLUB RANKINGS</p><h2>European efficiency leaderboard</h2></div><button className="outline" onClick={()=>data&&exportTemplate(data.teams)} disabled={!data}>↓ Download valuation template</button></div><div className="tablewrap"><table><thead><tr><th>#</th><th>Club</th><th>League</th><th>Pld</th><th>Pts</th><th>GF</th><th>GA</th><th>GD</th><th>Value</th><th>Pts / €100m</th><th>Index</th></tr></thead><tbody>{filtered.map((t,i)=><tr key={`${t.league}-${t.id}`} className={selected===t.id?"selected":""} onClick={()=>setSelected(t.id)}><td className="rank">{i+1}</td><td className="club">{t.name}{t.provisional&&<sup title="Fewer than ten completed games">*</sup>}</td><td><span className="league-dot" style={{background:COLORS[t.league]}}/>{t.league}</td><td>{t.played}</td><td><strong>{t.points}</strong></td><td>{t.goalsFor}</td><td>{t.goalsAgainst}</td><td className={t.goalDifference>0?"pos":t.goalDifference<0?"neg":""}>{t.goalDifference>0?"+":""}{t.goalDifference}</td><td>{money(t.valueEurM)}</td><td>{number(t.pointsPer100m,2)}</td><td className="index"><b>{number(t.valueIndex)}</b></td></tr>)}</tbody></table></div><footer className="table-footer">{filtered.length} clubs · {qualified.length} with entered squad values · * fewer than 10 completed games. Scores are computed from domestic league fixtures only.</footer></section>
+    <ValueIntelligence selected={selectedRow??null} teams={data?.teams??[]} intelligence={intelligence}/>
+    <ClubComparison selected={selectedRow??null} teams={data?.teams??[]} intelligence={intelligence}/>
+    <section className="panel rankings"><div className="panel-title"><div><p className="eyebrow">CLUB RANKINGS</p><h2>European efficiency leaderboard</h2></div><button className="outline" onClick={()=>data&&exportTemplate(data.teams)} disabled={!data}>↓ Download valuation template</button></div><div className="tablewrap"><table><thead><tr><th>#</th><th>Club</th><th>League</th><th>Pld</th><th>Pts</th><th>GF</th><th>GA</th><th>GD</th><th>Value</th><th>Pts / €100m</th><th>Index</th><th>Above expected</th><th>League PPG %ile</th><th>League value %ile</th></tr></thead><tbody>{filtered.map((t,i)=><tr key={`${t.league}-${t.id}`} className={selected===t.id?"selected":""} onClick={()=>setSelected(t.id)}><td className="rank">{i+1}</td><td className="club">{t.name}{t.provisional&&<sup title="Fewer than ten completed games">*</sup>}</td><td><span className="league-dot" style={{background:COLORS[t.league]}}/>{t.league}</td><td>{t.played}</td><td><strong>{t.points}</strong></td><td>{t.goalsFor}</td><td>{t.goalsAgainst}</td><td className={t.goalDifference>0?"pos":t.goalDifference<0?"neg":""}>{t.goalDifference>0?"+":""}{t.goalDifference}</td><td>{money(t.valueEurM)}</td><td>{number(t.pointsPer100m,2)}</td><td className="index"><b>{number(t.valueIndex)}</b></td><td className={intelligence[t.id]?.aboveExpected!=null ? (intelligence[t.id].aboveExpected!>=0?"pos":"neg"):""}>{intelligence[t.id]?.aboveExpected==null?"—":(intelligence[t.id].aboveExpected!>0?"+":"")+number(intelligence[t.id].aboveExpected)}</td><td>{intelligence[t.id]?.ppgPercentile==null?"—":Math.round(intelligence[t.id].ppgPercentile!)+"th"}</td><td>{intelligence[t.id]?.valuePercentile==null?"—":Math.round(intelligence[t.id].valuePercentile!)+"th"}</td></tr>)}</tbody></table></div><footer className="table-footer">{filtered.length} clubs · {qualified.length} with entered squad values · * fewer than 10 completed games. Scores are computed from domestic league fixtures only. Overperformance requires 8 valued league peers; percentiles are within each league.</footer></section>
     <footer className="bottom"><span>VALUE INDEX METHODOLOGY</span><p>Adjusted Index = 100 × [75% × points share + 25% × goal-difference score] × √(league median squad value / club squad value). GD score = clamp(0.5 + goals-per-game difference ÷ 6, 0, 1). Missing valuations do not receive a value rank. League medians are recalculated from clubs with supplied values.</p><p className="muted">Results: OpenFootball public-domain match feed, which can be delayed or incomplete. Market values: dated, manually verified snapshots (not live valuations). Results refresh on an hourly cache; do not treat these as in-play scores. Last successful browser check: {latestLoaded?new Date(latestLoaded).toLocaleString("en-GB"):"pending"}.</p></footer>
   </main>;
 }

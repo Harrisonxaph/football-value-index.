@@ -130,3 +130,23 @@ The **Form vs the mean** panel charts the selected club's rolling **points per m
 - **Scatter benchmarks:** vertical and horizontal mean lines, plus a descriptive straight-line regression between squad value and points **per recorded match**. The regression is purely a visual baseline, not a causal relationship or a forecast. Excludes clubs without valuation and teams with fewer than three recorded matches.
 
 Tests live in `tests/trends.test.mjs`; run with `npm test`. The extra trend observations are generated server-side from the same fixture feed as the rest of the dashboard; no extra API keys or packages are required.
+
+
+## Financial intelligence, league percentiles and club comparison
+
+The **Value Intelligence** panel shows three measures for the selected club:
+- **Actual points per match (PPG)** across up to its last ten recorded domestic league results.
+- **Peer-estimated PPG**: a *descriptive* fit of points per match against the natural logarithm of archived squad market value, using other clubs in the **same domestic league**. It requires the club to have a positive dated archive value and at least three recorded league games, plus eight other valued league clubs with at least three recorded games. The target club is excluded from the training peers (leave-one-out). The fit uses ridge smoothing and clips estimates to 0–3 PPG.
+- **Overperformance (PPG)** = actual PPG minus estimated PPG. A positive result is better than the historical-value peer fit; negative is below it. It is **not** a causal claim or proven prediction.
+
+The **league percentile cards** rank the club on actual PPG among qualifying league teams (including unvalued teams) and on Value Index **only among valued league teams**, with at least five qualifying entries per metric. 100th means best and 0th means worst; ties share the same averaged rank. League percentiles across different competitions describe rank within their respective league, not comparable quality of opponents.
+
+The **Head-to-head** panel lets you pick any two clubs across the five leagues, with responsive selectors, side-by-side PPG, goal rates, historical market values, Value Index, overperformance and percentiles. Its five-match PPG progression chart aligns each club by **match number within its last-ten window** rather than shared calendar dates; this is labelled explicitly. Differing result counts and missing match scores remain visible.
+
+The **club leaderboard** can also be sorted by Overperformance, league form percentile or league Value Index percentile; the new measures appear in extra columns on wide screens, with horizontal scrolling on mobile.
+
+### Source and confidence limitations
+
+Match results are from OpenFootball and may be missing several weeks of played results. **Do not treat these rankings as current league form without checking the freshness notices.** The historical market values are from a **6 July 2026 archive** reconstructed from 2025/26 player values. They are *not verified October 2026 squad market values*, and individual valuation dates are not supplied. Rankings are provisional and are not a recommendation to buy/sell players or bet.
+
+These features use no paid services or extra packages. Calculations and validation live in `lib/intelligence.ts` and `tests/intelligence.test.mjs`. Run `npm test` and `npm run build` to verify changes.
