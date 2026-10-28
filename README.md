@@ -116,3 +116,17 @@ The workflow has **read-only repository permissions**, uses **no secrets** and *
 | `.github/workflows/open-data-audit.yml` | Daily, PR and push automation, read-only and no secrets. |
 
 **Data source:** [OpenFootball football.json](https://github.com/openfootball/football.json) (public-domain JSON with daily rebuilds conditional on source updates). **Historic valuation option:** [dcaribou/transfermarkt-datasets](https://github.com/dcaribou/transfermarkt-datasets) (paused July 2026). Check sources and their reuse conditions before publishing derived market values.
+
+
+## Form trend charts and peer comparison
+
+The **Form vs the mean** panel charts the selected club's rolling **points per match, goals scored, goals conceded or goal difference** alongside the mean of its domestic league and all five major European leagues. Tap a completed-match date on mobile to inspect values, sample sizes, and the club's difference from its league.
+
+- **Real match dates, not an artificial weekly series.** The dashboard plots up to the club's ten most recent completed fixtures; an observation uses up to five **recorded completed league matches** up to that date. Three matches are required for a team to qualify.
+- **Peer league mean:** the unweighted average of qualifying clubs' rolling form *on that date*, including the selected club. Requires at least three eligible league clubs.
+- **Top-five mean:** average of qualifying clubs across the five tracked leagues on that date, each club weighted equally. Requires at least five eligible clubs. Means are not normalized for league strength.
+- Missing scores never count as draws, but could make the displayed trend incomplete; see the freshness warnings at the top of the dashboard.
+- **Not a historical value-index chart:** there is no historical time series of squad valuations in the project. The 2025/26 benchmark remains a fixed historical snapshot.
+- **Scatter benchmarks:** vertical and horizontal mean lines, plus a descriptive straight-line regression between squad value and points **per recorded match**. The regression is purely a visual baseline, not a causal relationship or a forecast. Excludes clubs without valuation and teams with fewer than three recorded matches.
+
+Tests live in `tests/trends.test.mjs`; run with `npm test`. The extra trend observations are generated server-side from the same fixture feed as the rest of the dashboard; no extra API keys or packages are required.

@@ -26,7 +26,8 @@ export type TeamStats = {
 export type LeagueFreshness = {league:LeagueCode; fetchedAt:string; latestResult:string|null;
   played:number; outstandingPastFixtures:number; sourceUrl:string};
 export type DashboardData = { mode:"open-data"; season:number; generatedAt:string;
-  source:string; teams:TeamStats[]; freshness:LeagueFreshness[]; warning?:string };
+  source:string; teams:TeamStats[]; freshness:LeagueFreshness[]; warning?:string;
+  trends?: Record<string, import("./trends.ts").TrendPoint[]> };
 
 export function median(values:number[]):number|null {
   if(!values.length) return null;
