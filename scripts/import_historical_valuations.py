@@ -129,7 +129,11 @@ def main():
     vals,audit = build(clubs,teams)
     audit["imported"] = len(vals)
     if len(vals) < 50:
-        raise RuntimeError(f"Only {len(vals)}/{len(teams)} safe matches. Not overwriting valuations.json. First unmatched: {audit['unmatched'][:8]}")
+        print("DEBUG archive columns:", list(clubs[0]) if clubs else [])
+        print("DEBUG archive first three rows:", [{k:r.get(k) for k in ('name','club_code','domestic_competition_id','total_market_value','last_season')} for r in clubs[:3]])
+        print("DEBUG excluded:", audit["excluded"][:12])
+        print("DEBUG unmatched:", audit["unmatched"][:12])
+        raise RuntimeError(f"Only {len(vals)}/{len(teams)} safe matches. Not overwriting valuations.json.")
     Path("data/valuations.json").write_text(json.dumps(vals,indent=2,ensure_ascii=False)+"\n")
     Path("data/historical-valuation-audit.json").write_text(json.dumps(audit,indent=2,ensure_ascii=False)+"\n")
     print(f"Imported {len(vals)}/{len(teams)} dated archive club totals. Unmatched {len(audit['unmatched'])}, excluded {len(audit['excluded'])}.")
