@@ -150,3 +150,15 @@ The **club leaderboard** can also be sorted by Overperformance, league form perc
 Match results are from OpenFootball and may be missing several weeks of played results. **Do not treat these rankings as current league form without checking the freshness notices.** The historical market values are from a **6 July 2026 archive** reconstructed from 2025/26 player values. They are *not verified October 2026 squad market values*, and individual valuation dates are not supplied. Rankings are provisional and are not a recommendation to buy/sell players or bet.
 
 These features use no paid services or extra packages. Calculations and validation live in `lib/intelligence.ts` and `tests/intelligence.test.mjs`. Run `npm test` and `npm run build` to verify changes.
+
+## Club crests in the Value vs Performance scatter
+
+The scatter now defaults to **club badges** instead of coloured dots and includes a **Club badges / Dots** toggle. Both modes keep their original numerical X/Y coordinates, the league filter, performance trendline, point selection, tooltips, and linking to the club deep dive. On a small screen the graph can scroll sideways; selecting a badge highlights the associated club.
+
+All 96 clubs in the 2026/27 OpenFootball files have an explicitly checked crest mapping in `data/club-badges.json`, including promoted clubs and naming exceptions such as Inter/Internazionale, Barcelona/Espanyol and Cologne/Köln. The visual is only shown for clubs with qualifying result and historical value data, as before.
+
+**Source and rights:** Icons are linked from the public [JoseArroyave/football-logos](https://github.com/JoseArroyave/football-logos) SVG repository at pinned source commit `5ab11fed47427b3003f4b276554491fe683387b1`. Its code and repository carry an MIT licence. **Individual club badges are still the trademarks of their respective owners**; the mapping is used for identifying clubs and does not claim official affiliation, endorsement, or rights to the crests. Review asset rights separately before commercial use. The project **does not copy these third-party image files** into its own repository.
+
+Badges load externally in users' browsers and may be unavailable if their network blocks GitHub images or a source file fails. In that case the chart retains its coloured marker and the full accessible club label; users can always switch back to **Dots**. No API keys or external JS packages are needed.
+
+To run the mapping tests: `npm test`. To build: `npm run build`. This is a UI-only change and does not alter any valuations, point calculations or the current known match-data freshness issue.
