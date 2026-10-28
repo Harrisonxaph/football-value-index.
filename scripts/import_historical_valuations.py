@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""Import older club totals from a dated Transfermarkt archive; never call them live."""
+"""Sum archived player market values for clubs; never label these live or current."""
 from __future__ import annotations
 import csv, difflib, gzip, io, json, re, unicodedata, urllib.request
 from pathlib import Path
 
 RAW = "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/clubs.csv.gz"
+PLAYERS = "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/players.csv.gz"
 FIXTURES = "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27"
 FILES = {"PL":"en.1","PD":"es.1","SA":"it.1","BL1":"de.1","FL1":"fr.1"}
 LEAGUES = {"PL":"GB1","PD":"ES1","SA":"IT1","BL1":"L1","FL1":"FR1"}
 SNAPSHOT = "2026-07-06"  # Archive cut-off; NOT a verified per-club valuation date.
 PLAYER_CUTOFF = "2026-06-12"  # Latest player valuation anywhere in the archive.
-EUR_GBP = 0.86305  # ECB 2026-06-12: 1 EUR = 0.86305 GBP.
-FX_SOURCE = "https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:C/2026/02847"
 ALIASES = {
  "PL:Brighton & Hove Albion FC": ["brighton and hove albion"],
  "PL:Tottenham Hotspur FC": ["tottenham hotspur"],
@@ -87,7 +86,7 @@ def match_club(code, team, clubs):
         return candidates[0][1],"unique-high-confidence"
     return None,"no unambiguous match"
 
-def build(clubs, teams):
+def build(clubs, teams, player_values):
     result, included, unmatched, excluded = {}, [], [], []
     for code,team in teams:
         club_id = f"{code}:{team}"
@@ -98,35 +97,46 @@ def build(clubs, teams):
         if year(row.get("last_season")) < 2025:
             excluded.append({"id":club_id,"sourceClub":row.get("name"),"last_season":row.get("last_season"),"reason":"historical club profile older than 2025/26"})
             continue
-        try:
-            value_gbp = float(str(row.get("total_market_value","")).replace(",",""))
-        except (TypeError,ValueError):
-            value_gbp = 0.0
-        if not 0 < value_gbp < 10000:
-            excluded.append({"id":club_id,"sourceClub":row.get("name"),"reason":"missing or implausible archive market value"})
+        squad=player_values.get(str(row["club_id"]), [])
+        if len(squad) < 10:
+            excluded.append({"id":club_id,"sourceClub":row.get("name"),"reason":"fewer than 10 players with positive archived valuations","valuedPlayers":len(squad)})
             continue
-        value_eur = round(value_gbp/EUR_GBP,2)
+        value_eur = round(sum(squad)/1_000_000,2)
+        if not 1 <= value_eur < 10000:
+            excluded.append({"id":club_id,"sourceClub":row.get("name"),"reason":"implausible aggregated player valuation"})
+            continue
         result[club_id] = {
           "valueEurM":value_eur,
           "asOf":SNAPSHOT,
           "dateBasis":"archive snapshot; individual club valuation date not supplied",
-          "source":f"dcaribou/transfermarkt-datasets clubs.csv.gz, historical 2025/26 club_id={row['club_id']}; archive snapshot {SNAPSHOT} (NOT verified date of club valuation); latest player valuation anywhere in dataset {PLAYER_CUTOFF}; GBP millions converted at ECB 2026-06-12 rate 1 EUR = {EUR_GBP} GBP"
+          "source":f"dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; {len(squad)} players linked via current_club_id={row['club_id']}; archive snapshot {SNAPSHOT} (NOT verified date of club valuation); latest individual player valuation anywhere {PLAYER_CUTOFF}; values in EUR, no FX conversion"
         }
-        included.append({"id":club_id,"sourceClubId":row["club_id"],"sourceClub":row.get("name"),"last_season":row.get("last_season"),"match":method,"valueGbpM":value_gbp,"valueEurM":value_eur})
+        included.append({"id":club_id,"sourceClubId":row["club_id"],"sourceClub":row.get("name"),"last_season":row.get("last_season"),"match":method,"valuedPlayers":len(squad),"valueEurM":value_eur})
     return dict(sorted(result.items())), {"snapshotDate":SNAPSHOT,"snapshotDateIsIndividualClubValuationDate":False,
-        "latestPlayerValuationAnywhere":PLAYER_CUTOFF,"source":RAW,"fxSource":FX_SOURCE,
+        "latestPlayerValuationAnywhere":PLAYER_CUTOFF,"source":PLAYERS,"clubMappingSource":RAW,
         "matched":included,"unmatched":unmatched,"excluded":excluded,"tracked":len(teams)}
 
 def main():
     clubs = list(csv.DictReader(io.StringIO(gzip.decompress(download(RAW)).decode("utf-8-sig"))))
     if len(clubs) < 500:
         raise RuntimeError("Unexpectedly few archive club rows; refusing to write.")
+    raw_players = list(csv.DictReader(io.StringIO(gzip.decompress(download(PLAYERS)).decode("utf-8-sig"))))
+    player_values={}
+    for p in raw_players:
+        try:
+            v=float(str(p.get("market_value_in_eur","")).replace(",",""))
+        except (TypeError,ValueError):
+            continue
+        if 0 < v < 400_000_000 and p.get("current_club_id") and p.get("current_club_id") != "-1":
+            player_values.setdefault(str(p["current_club_id"]), []).append(v)
+    print("Player source columns:", list(raw_players[0]) if raw_players else [])
+    print("Archive players:",len(raw_players),"clubs with positive player values:",len(player_values))
     teams = []
     for code,file in FILES.items():
         matches = json.loads(download(f"{FIXTURES}/{file}.json"))["matches"]
         names = sorted({m[k].strip() for m in matches for k in ("team1","team2")})
         teams.extend((code,name) for name in names)
-    vals,audit = build(clubs,teams)
+    vals,audit = build(clubs,teams,player_values)
     audit["imported"] = len(vals)
     if len(vals) < 50:
         print("DEBUG archive columns:", list(clubs[0]) if clubs else [])
@@ -136,7 +146,7 @@ def main():
         raise RuntimeError(f"Only {len(vals)}/{len(teams)} safe matches. Not overwriting valuations.json.")
     Path("data/valuations.json").write_text(json.dumps(vals,indent=2,ensure_ascii=False)+"\n")
     Path("data/historical-valuation-audit.json").write_text(json.dumps(audit,indent=2,ensure_ascii=False)+"\n")
-    print(f"Imported {len(vals)}/{len(teams)} dated archive club totals. Unmatched {len(audit['unmatched'])}, excluded {len(audit['excluded'])}.")
+    print(f"Imported {len(vals)}/{len(teams)} historical player-sum club values. Unmatched {len(audit['unmatched'])}, excluded {len(audit['excluded'])}.")
     for missed in audit["unmatched"]+audit["excluded"]:
         print("SKIPPED",json.dumps(missed,ensure_ascii=False))
 
