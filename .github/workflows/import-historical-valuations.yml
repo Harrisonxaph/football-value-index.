@@ -1,0 +1,50 @@
+name: Import historical squad-value benchmark
+on:
+  push:
+    branches: [feature/historical-squad-values]
+    paths:
+      - scripts/import_historical_valuations.py
+      - .github/workflows/import-historical-valuations.yml
+      - docs/historical-valuations.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out development branch
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Import and audit historical club values
+        run: python scripts/import_historical_valuations.py
+      - name: Check dated valuation format
+        run: |
+          python - <<'PY'
+          import json
+          with open('data/valuations.json', encoding='utf-8') as f:
+              rows=json.load(f)
+          with open('data/historical-valuation-audit.json', encoding='utf-8') as f:
+              audit=json.load(f)
+          assert len(rows)>=50 and len(rows)==audit['imported']
+          assert all(isinstance(v['valueEurM'], (float,int)) and v['valueEurM']>0
+                     and v['asOf']=='2026-07-06' and 'archive snapshot' in v['dateBasis']
+                     and 'NOT verified date' in v['source'] for v in rows.values())
+          print(f"Validated {len(rows)} archived club values with source and date labels.")
+          PY
+      - name: Commit generated JSON on feature branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/valuations.json data/historical-valuation-audit.json
+          if git diff --cached --quiet; then
+            echo "No new values"
+          else
+            git commit -m "data: import 2025/26 archived club market values"
+            git push origin HEAD:feature/historical-squad-values
+          fi
