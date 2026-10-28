@@ -1,0 +1,52 @@
+name: Audit public football data
+on:
+  workflow_dispatch:
+  schedule:
+    # Generated JSON files update around 05:00 UTC, not necessarily their upstream scores.
+    - cron: '17 7 * * *'
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Unit-test public-data calculations
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Download and audit all five live feeds
+        run: python scripts/open_data_audit.py --output open-data-audit.json
+      - name: Preserve the data-quality report
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-open-data-audit
+          path: open-data-audit.json
+          retention-days: 7
+
+  ui-tests:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Verify football calculations
+        run: npm test
+      - name: Build mobile dashboard
+        run: npm run build
