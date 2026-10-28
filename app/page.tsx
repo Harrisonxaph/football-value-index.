@@ -9,6 +9,7 @@ import ValueIntelligence from "./ValueIntelligence";
 import ClubComparison from "./ClubComparison";
 import badgeUrls from "../data/club-badges.json";
 
+type ViewKey="overview"|"rankings"|"trends"|"compare";
 type SortKey="valueIndex"|"pointsPer100m"|"points"|"goalDifference"|"goalsFor"|"goalsAgainst"|"valueEurM"|"aboveExpected"|"ppgPercentile"|"valuePercentile";
 const COLORS:Record<LeagueCode,string>={PL:"#B8F26C",PD:"#F3BE72",SA:"#97A9FF",BL1:"#ED96AD",FL1:"#79D0D0"};
 const money=(v:number|null)=>v===null?"—":`€${v.toLocaleString("en-GB",{maximumFractionDigits:0})}m`;
@@ -50,7 +51,7 @@ function DotChart({teams,selectedId,onSelect,showBadges}:{teams:TeamStats[];sele
       const selected=selectedId===t.id;
       const src=(badgeUrls as Record<string,string>)[t.id];
       const hasBadge=showBadges && !!src && !failedBadges.has(t.id);
-      const diameter=selected?34:25;
+      const diameter=selected?40:29;
       const r=selected?diameter/2+2:diameter/2;
       const xPos=x(t.valueEurM!);
       const yPos=y(t.points/t.played);
@@ -60,7 +61,7 @@ function DotChart({teams,selectedId,onSelect,showBadges}:{teams:TeamStats[];sele
         onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();onSelect(t.id)}}}>
         <title>{label}</title>
         {/* Wider transparent hit target makes small crests usable on touch screens. */}
-        <circle cx={xPos} cy={yPos} r={Math.max(20,r+2)} fill="transparent" stroke="none" />
+        <circle cx={xPos} cy={yPos} r={Math.max(23,r+3)} fill="transparent" stroke="none" />
         {selected&&<circle cx={xPos} cy={yPos} r={r+3} fill="none" stroke="#b8f26c" strokeWidth="2.5" />}
         <circle cx={xPos} cy={yPos} r={hasBadge?r:Math.max(5,selected?10:6)}
           fill={hasBadge?"#f5f7f2":COLORS[t.league]} stroke={selected?"#ffffff":"#10231c"}
@@ -72,7 +73,7 @@ function DotChart({teams,selectedId,onSelect,showBadges}:{teams:TeamStats[];sele
     })}
     <text x={W/2} y={H-1} textAnchor="middle" fill="#bacbc2" fontSize="12">Squad value (€ millions)</text>
     <text x={16} y={H/2} transform={`rotate(-90 16 ${H/2})`} textAnchor="middle" fill="#bacbc2" fontSize="12">Points per match</text>
-  </svg>{fit&&<p className="scatter-baseline">Dashed benchmark: linear trend · {fit.count} valued clubs with 3+ results · Mean €{Math.round(fit.meanValue)}m squad value · {fit.meanPPG.toFixed(2)} points/match. Descriptive comparison, not a forecast.</p>}</div>;
+  </svg><p className="chart-mobile-hint">Swipe sideways to explore the chart · Tap a badge for club details</p>{fit&&<p className="scatter-baseline">Dashed benchmark: linear trend · {fit.count} valued clubs with 3+ results · Mean €{Math.round(fit.meanValue)}m squad value · {fit.meanPPG.toFixed(2)} points/match. Descriptive comparison, not a forecast.</p>}</div>;
 }
 
 export default function Home(){
@@ -81,7 +82,8 @@ export default function Home(){
   const [loading,setLoading]=useState(true);
   const [league,setLeague]=useState<string>("ALL");
   const [query,setQuery]=useState("");
-  const [sort,setSort]=useState<SortKey>("points");
+  const [sort,setSort]=useState<SortKey>("valueIndex");
+  const [view,setView]=useState<ViewKey>("overview");
   const [showBadges,setShowBadges]=useState(true);
   const [selected,setSelected]=useState<string|null>(null);
   const [latestLoaded,setLatestLoaded]=useState<string|null>(null);
@@ -101,7 +103,7 @@ export default function Home(){
   const intelligence=useMemo(()=>calculateIntelligence(data?.teams??[]),[data]);
   const filtered=useMemo(()=>{
     if(!data)return [];
-    return data.teams.filter(t=>(league==="ALL"||t.league===league)&&t.name.toLowerCase().includes(query.toLowerCase().trim()))
+    return data.teams.filter(t=>(league==="ALL"||t.league===league)&&(view!=="rankings"||t.name.toLowerCase().includes(query.toLowerCase().trim())))
       .sort((a,b)=>{
         const read=(t:TeamStats)=>{
           if(sort==="goalsAgainst")return -t.goalsAgainst;
@@ -112,32 +114,79 @@ export default function Home(){
         };
         return read(b)-read(a)||b.points-a.points||a.name.localeCompare(b.name);
       });
-  },[data,league,query,sort,intelligence]);
+  },[data,league,query,sort,intelligence,view]);
   const qualified=filtered.filter(t=>t.valueEurM!==null);
-  const topScorer=[...filtered].sort((a,b)=>b.goalsFor-a.goalsFor)[0];
+
   const mostEfficient=[...filtered].filter(t=>t.valueIndex!==null).sort((a,b)=>b.valueIndex!-a.valueIndex!)[0];
-  const mostPoints=[...filtered].sort((a,b)=>b.points-a.points)[0];
+
   const selectedRow=filtered.find(t=>t.id===selected)??filtered[0];
+  const missingFixtures=data?.freshness.reduce((sum,f)=>sum+f.outstandingPastFixtures,0)??0;
+  const historicalValues=!!data?.teams.some(t=>t.valuationSource?.includes("NOT verified date"));
   return <main className="shell">
     <header className="header">
       <div className="brand"><span className="brand-icon">↗</span><span>THE FOOTBALL <strong>VALUE INDEX</strong></span></div>
       <div className="header-right"><span className="season">2026/27 · EUROPE TOP 5</span><span className={`status ${data && !data.warning?"status-live":""}`}>● {loading?"LOADING":data?.warning?"DATA CAUTION":"OPEN DATA"}</span></div>
     </header>
     <section className="hero">
-      <div><p className="eyebrow">FOOTBALL INTELLIGENCE / CLUB EFFICIENCY</p><h1>Results over <em>resources.</em></h1><p className="sub">Find the clubs delivering more on the pitch for less off it. Last 10 domestic league matches, compared with estimated squad market value.</p></div>
+      <div><p className="eyebrow">FOOTBALL INTELLIGENCE / CLUB EFFICIENCY</p><h1>Find the <em>edge.</em></h1><p className="sub">Explore squad value, form and overperformance across Europe’s top five leagues. Every comparison is grounded in its source and sample size.</p></div>
       <div className="date-panel"><span>DATA CHECK</span><strong>{data?.generatedAt?new Date(data.generatedAt).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"}):"—"}</strong><small>{data?.generatedAt?new Date(data.generatedAt).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"Europe/London"}):""} · UK time</small><small>Checks hourly · upstream daily</small></div>
     </section>
-    {error&&<div className="alert error"><strong>Open-data feed unavailable.</strong> {error}</div>}
-    {data?.warning&&<div className="alert"><strong>{"DATA QUALITY NOTICE"}</strong> {data.warning}</div>}
-    {data?.teams.some(t=>t.valuationSource?.includes("NOT verified date"))&&<div className="alert"><strong>HISTORICAL SQUAD BENCHMARK · 6 JUL 2026 ARCHIVE</strong> These figures reflect archived 2025/26 club profiles, not current 2026/27 squads. The individual club valuation dates are not available. Rankings are provisional.</div>}
-    <section className="metrics">
-      <div className="metric"><span>TEAMS TRACKED</span><strong>{filtered.length}</strong><small>across {league==="ALL"?5:1} league{league==="ALL"?"s":""}</small></div>
-      <div className="metric"><span>HIGHEST POINTS</span><strong>{mostPoints?`${mostPoints.points} / ${mostPoints.played*3}`:"—"}</strong><small>{mostPoints?.name??"Not loaded"}</small></div>
-      <div className="metric"><span>BEST VALUE INDEX</span><strong>{mostEfficient?number(mostEfficient.valueIndex):"—"}</strong><small>{mostEfficient?.name??"Missing valuations"}</small></div>
-      <div className="metric"><span>MOST GOALS</span><strong>{topScorer?.goalsFor??"—"}</strong><small>{topScorer?.name??"Not loaded"}</small></div>
+    {error&&<div className="alert error" role="alert"><strong>Data feed unavailable.</strong> {error}</div>}
+    <nav className="view-tabs" aria-label="Dashboard sections">
+      {(["overview","rankings","trends","compare"] as const).map(tab=>
+        <button key={tab} type="button" className={view===tab?"active":""} aria-current={view===tab?"page":undefined}
+          onClick={()=>{setView(tab);setQuery("");}}>
+          {tab==="overview"?"Overview":tab==="rankings"?"Rankings":tab==="trends"?"Trends":"Compare"}
+        </button>)}
+    </nav>
+    <details className={data?.warning?"data-disclosure is-warning":"data-disclosure"}>
+      <summary><span className="data-status-dot"/> <strong>{missingFixtures>0?"Incomplete results":error?"Data unavailable":"Source details"}</strong>
+        <span>{missingFixtures>0?missingFixtures+" past fixtures without scores":data?"Source & methods":"Loading source"} · {historicalValues?"July 2026 valuation archive":"Historical valuation data"}</span>
+        <span className="data-details-label">Details <span aria-hidden="true">⌄</span></span>
+      </summary>
+      <div className="data-disclosure-body">
+        <p><strong>Data quality:</strong> {data?.warning||"Data may be incomplete; check league sources before interpreting rankings."}</p>
+        <p><strong>Valuation basis:</strong> Historical July 2026 archive reconstructed from 2025/26 player market values. It does not establish October 2026 squad valuations or individual club valuation dates.</p>
+        {data?.freshness&&<div className="source-grid">{data.freshness.map(f=>
+          <a key={f.league} href={f.sourceUrl} target="_blank" rel="noreferrer">
+            <span>{LEAGUES.find(l=>l.code===f.league)?.name}</span>
+            <strong>{f.latestResult?"Last recorded "+new Date(f.latestResult+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short"}):"No scores"}</strong>
+            <small>{f.outstandingPastFixtures} missing past scores ↗</small>
+          </a>)}</div>}
+      </div>
+    </details>
+    {view==="overview"&&
+      <section className="metrics">
+        <div className="metric"><span>CLUBS ANALYSED</span><strong>{filtered.length}</strong><small>{league==="ALL"?"Across five leagues":LEAGUES.find(l=>l.code===league)?.name}</small></div>
+        <div className="metric"><span>WITH HISTORICAL VALUES</span><strong>{qualified.length}</strong><small>Of {filtered.length} tracked clubs</small></div>
+        <div className="metric"><span>HIGHEST VALUE INDEX</span><strong>{mostEfficient?number(mostEfficient.valueIndex):"—"}</strong><small>{mostEfficient?.name??"No eligible clubs"}</small></div>
+      </section>
+    }
+    <section className="filterbar" aria-label="League and club filters">
+      <div className="leaguebar"><button type="button" className={league==="ALL"?"active":""} onClick={()=>{setLeague("ALL");setSelected(null);}}>All leagues</button>
+        {LEAGUES.map(l=><button type="button" key={l.code} onClick={()=>{setLeague(l.code);setSelected(null);}} className={league===l.code?"active":""}>{l.name}</button>)}
+      </div>
+      <div className="filters">
+        {view!=="compare"&&<label className="club-picker"><span>Focus club</span>
+          <select aria-label="Focus on club" value={selectedRow?.id??""} onChange={e=>{setSelected(e.target.value);setQuery("");}}>
+            {(data?.teams??[]).filter(t=>league==="ALL"||t.league===league).slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>
+              <option value={t.id} key={t.id}>{t.name}</option>)}
+          </select>
+        </label>}
+        {view==="rankings"&&<><input aria-label="Search club" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search club…"/>
+          <label className="rank-sort">Rank by <select value={sort} onChange={e=>setSort(e.target.value as SortKey)}>
+            <option value="valueIndex">Adjusted Value Index</option>
+            <option value="aboveExpected">Overperformance PPG</option>
+            <option value="ppgPercentile">League form percentile</option>
+            <option value="valuePercentile">League value percentile</option>
+            <option value="pointsPer100m">Points / €100m</option><option value="points">Points</option>
+            <option value="goalDifference">Goal difference</option><option value="goalsFor">Goals scored</option>
+            <option value="goalsAgainst">Fewest conceded</option><option value="valueEurM">Squad value</option>
+          </select></label>
+        </>}
+      </div>
     </section>
-    {data?.freshness && <section className="freshness" aria-label="League data freshness">{data.freshness.map(f=><a key={f.league} href={f.sourceUrl} target="_blank" rel="noreferrer" className="freshness-item"><span>{LEAGUES.find(l=>l.code===f.league)?.name}</span><strong>{f.latestResult?`Last score ${new Date(f.latestResult+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short"})}`:"No scored games"}</strong><small>{f.outstandingPastFixtures} past fixtures missing scores ↗</small></a>)}</section>}
-    <section className="filterbar"><div className="leaguebar"><button className={league==="ALL"?"active":""} onClick={()=>setLeague("ALL")}>All leagues</button>{LEAGUES.map(l=><button key={l.code} onClick={()=>setLeague(l.code)} className={league===l.code?"active":""}>{l.name}</button>)}</div><div className="filters"><input aria-label="Search club" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search club…"/><label>Rank by <select value={sort} onChange={e=>setSort(e.target.value as SortKey)}><option value="valueIndex">Adjusted Value Index</option><option value="aboveExpected">Overperformance PPG</option><option value="ppgPercentile">League form percentile</option><option value="valuePercentile">League value percentile</option><option value="pointsPer100m">Points / €100m</option><option value="points">Points</option><option value="goalDifference">Goal difference</option><option value="goalsFor">Goals scored</option><option value="goalsAgainst">Fewest conceded</option><option value="valueEurM">Squad value</option></select></label></div></section>
+    {view==="overview"&&
     <div className="workspace">
       <section className="panel scatter"><div className="panel-title"><div><p className="eyebrow">VALUE V PERFORMANCE</p><h2>Are they worth their weight?</h2></div><div className="scatter-options"><span className="muted">Points per match · 2025/26 archived squad value</span>
       <div className="scatter-mode" role="group" aria-label="Scatter plot marker style">
@@ -145,14 +194,39 @@ export default function Home(){
         <button type="button" aria-pressed={!showBadges} className={!showBadges?"active":""} onClick={()=>setShowBadges(false)}>Dots</button>
       </div>
     </div></div><DotChart teams={filtered} selectedId={selected} onSelect={setSelected} showBadges={showBadges}/><div className="legend">{LEAGUES.filter(l=>league==="ALL"||league===l.code).map(l=><span key={l.code}><i style={{background:COLORS[l.code]}}/>{l.name}</span>)}</div></section>
-      <section className="panel insight"><p className="eyebrow">CLUB DEEP DIVE</p><h2>{selectedRow?.name??"Select a club"}</h2><p className="muted">{selectedRow?LEAGUES.find(x=>x.code===selectedRow.league)?.name:""} · Last {selectedRow?.played??0} games</p>
-        {selectedRow?<><div className="insight-stats"><div><b>{selectedRow.points}</b><span>Points</span></div><div><b>{selectedRow.goalsFor}–{selectedRow.goalsAgainst}</b><span>GF / GA</span></div><div><b>{money(selectedRow.valueEurM)}</b><span>Squad value</span></div><div><b>{number(selectedRow.valueIndex)}</b><span>Value index</span></div></div><div className="form">{selectedRow.form.slice().reverse().map((r,i)=><span className={r.result.toLowerCase()} key={`${r.date}-${i}`} title={`${r.opponent} (${r.venue}): ${r.goalsFor}–${r.goalsAgainst}`}>{r.result}</span>)}</div><div className="matchlist">{selectedRow.form.slice(0,5).map((r,i)=><div key={`${r.date}-${i}`}><span>{new Date(r.date).toLocaleDateString("en-GB",{day:"2-digit",month:"short"})} · {r.venue}</span><span>{r.opponent}</span><strong>{r.goalsFor}–{r.goalsAgainst}</strong></div>)}</div><p className="note">{selectedRow.valuationAsOf?(selectedRow.valuationSource?.includes("NOT verified date")?`Historic archive snapshot ${selectedRow.valuationAsOf} · individual club valuation date unknown`:`Value as of ${selectedRow.valuationAsOf}`):"Squad valuation not entered"}{selectedRow.valuationSource?` · Source: ${selectedRow.valuationSource}`:""}{selectedRow.provisional?" · Provisional: fewer than 10 games":""}</p></>:<div className="muted">No clubs available</div>}
+      <section className="panel insight"><p className="eyebrow">SELECTED CLUB</p><h2>{selectedRow?.name??"Select a club"}</h2><p className="muted">{selectedRow?LEAGUES.find(x=>x.code===selectedRow.league)?.name:""} · Last {selectedRow?.played??0} games</p>
+        {selectedRow?<><div className="insight-stats"><div><b>{selectedRow.points}</b><span>Points</span></div><div><b>{selectedRow.goalsFor}–{selectedRow.goalsAgainst}</b><span>GF / GA</span></div><div><b>{money(selectedRow.valueEurM)}</b><span>Squad value</span></div><div><b>{number(selectedRow.valueIndex)}</b><span>Value index</span></div></div><div className="form">{selectedRow.form.slice().reverse().map((r,i)=><span className={r.result.toLowerCase()} key={`${r.date}-${i}`} title={`${r.opponent} (${r.venue}): ${r.goalsFor}–${r.goalsAgainst}`}>{r.result}</span>)}</div><div className="matchlist">{selectedRow.form.slice(0,5).map((r,i)=><div key={`${r.date}-${i}`}><span>{new Date(r.date).toLocaleDateString("en-GB",{day:"2-digit",month:"short"})} · {r.venue}</span><span>{r.opponent}</span><strong>{r.goalsFor}–{r.goalsAgainst}</strong></div>)}</div><details className="spotlight-source"><summary>Valuation source and caveats</summary><p className="note">{selectedRow.valuationAsOf?(selectedRow.valuationSource?.includes("NOT verified date")?`Historic archive snapshot ${selectedRow.valuationAsOf} · individual club valuation date unknown`:`Value as of ${selectedRow.valuationAsOf}`):"Squad valuation not entered"}{selectedRow.valuationSource?` · Source: ${selectedRow.valuationSource}`:""}{selectedRow.provisional?" · Provisional: fewer than 10 games":""}</p></details></>:<div className="muted">No clubs available</div>}
       </section>
     </div>
-    <TrendCharts selected={selectedRow??null} trends={data?.trends} />
+    }
+    {view==="trends"&&<section className="tab-content" aria-label="Club form trends">
+      <div className="section-intro"><p className="eyebrow">CLUB ANALYSIS</p><h2>Form, in context.</h2><p>Compare a club’s recent performance with its league and the wider European average.</p></div>
+      <TrendCharts selected={selectedRow??null} trends={data?.trends} />
     <ValueIntelligence selected={selectedRow??null} teams={data?.teams??[]} intelligence={intelligence}/>
-    <ClubComparison selected={selectedRow??null} teams={data?.teams??[]} intelligence={intelligence}/>
-    <section className="panel rankings"><div className="panel-title"><div><p className="eyebrow">CLUB RANKINGS</p><h2>European efficiency leaderboard</h2></div><button className="outline" onClick={()=>data&&exportTemplate(data.teams)} disabled={!data}>↓ Download valuation template</button></div><div className="tablewrap"><table><thead><tr><th>#</th><th>Club</th><th>League</th><th>Pld</th><th>Pts</th><th>GF</th><th>GA</th><th>GD</th><th>Value</th><th>Pts / €100m</th><th>Index</th><th>Above expected</th><th>League PPG %ile</th><th>League value %ile</th></tr></thead><tbody>{filtered.map((t,i)=><tr key={`${t.league}-${t.id}`} className={selected===t.id?"selected":""} onClick={()=>setSelected(t.id)}><td className="rank">{i+1}</td><td className="club">{t.name}{t.provisional&&<sup title="Fewer than ten completed games">*</sup>}</td><td><span className="league-dot" style={{background:COLORS[t.league]}}/>{t.league}</td><td>{t.played}</td><td><strong>{t.points}</strong></td><td>{t.goalsFor}</td><td>{t.goalsAgainst}</td><td className={t.goalDifference>0?"pos":t.goalDifference<0?"neg":""}>{t.goalDifference>0?"+":""}{t.goalDifference}</td><td>{money(t.valueEurM)}</td><td>{number(t.pointsPer100m,2)}</td><td className="index"><b>{number(t.valueIndex)}</b></td><td className={intelligence[t.id]?.aboveExpected!=null ? (intelligence[t.id].aboveExpected!>=0?"pos":"neg"):""}>{intelligence[t.id]?.aboveExpected==null?"—":(intelligence[t.id].aboveExpected!>0?"+":"")+number(intelligence[t.id].aboveExpected)}</td><td>{intelligence[t.id]?.ppgPercentile==null?"—":Math.round(intelligence[t.id].ppgPercentile!)+"th"}</td><td>{intelligence[t.id]?.valuePercentile==null?"—":Math.round(intelligence[t.id].valuePercentile!)+"th"}</td></tr>)}</tbody></table></div><footer className="table-footer">{filtered.length} clubs · {qualified.length} with entered squad values · * fewer than 10 completed games. Scores are computed from domestic league fixtures only. Overperformance requires 8 valued league peers; percentiles are within each league.</footer></section>
-    <footer className="bottom"><span>VALUE INDEX METHODOLOGY</span><p>Adjusted Index = 100 × [75% × points share + 25% × goal-difference score] × √(league median squad value / club squad value). GD score = clamp(0.5 + goals-per-game difference ÷ 6, 0, 1). Missing valuations do not receive a value rank. League medians are recalculated from clubs with supplied values.</p><p className="muted">Results: OpenFootball public-domain match feed, which can be delayed or incomplete. Market values: dated, manually verified snapshots (not live valuations). Results refresh on an hourly cache; do not treat these as in-play scores. Last successful browser check: {latestLoaded?new Date(latestLoaded).toLocaleString("en-GB"):"pending"}.</p></footer>
+    </section>}
+    {view==="compare"&&<section className="tab-content" aria-label="Compare clubs">
+      <div className="section-intro"><p className="eyebrow">TWO CLUBS · ONE VIEW</p><h2>Compare the details.</h2><p>Explore club form and historic squad value side by side, within or across leagues.</p></div>
+      <ClubComparison selected={selectedRow??null} teams={data?.teams??[]} intelligence={intelligence}/>
+    </section>}
+    {view==="rankings"&&<section className="panel rankings"><div className="panel-title"><div><p className="eyebrow">CLUB RANKINGS</p><h2>European efficiency leaderboard</h2></div><button className="outline" onClick={()=>data&&exportTemplate(data.teams)} disabled={!data}>Download values template</button></div><div className="tablewrap desktop-rankings"><table><thead><tr><th>#</th><th>Club</th><th>League</th><th>Pld</th><th>Pts</th><th>GF</th><th>GA</th><th>GD</th><th>Value</th><th>Pts / €100m</th><th>Index</th><th>Above expected</th><th>League PPG %ile</th><th>League value %ile</th></tr></thead><tbody>{filtered.map((t,i)=><tr key={`${t.league}-${t.id}`} className={selected===t.id?"selected":""} onClick={()=>setSelected(t.id)}><td className="rank">{i+1}</td><td className="club">{t.name}{t.provisional&&<sup title="Fewer than ten completed games">*</sup>}</td><td><span className="league-dot" style={{background:COLORS[t.league]}}/>{t.league}</td><td>{t.played}</td><td><strong>{t.points}</strong></td><td>{t.goalsFor}</td><td>{t.goalsAgainst}</td><td className={t.goalDifference>0?"pos":t.goalDifference<0?"neg":""}>{t.goalDifference>0?"+":""}{t.goalDifference}</td><td>{money(t.valueEurM)}</td><td>{number(t.pointsPer100m,2)}</td><td className="index"><b>{number(t.valueIndex)}</b></td><td className={intelligence[t.id]?.aboveExpected!=null ? (intelligence[t.id].aboveExpected!>=0?"pos":"neg"):""}>{intelligence[t.id]?.aboveExpected==null?"—":(intelligence[t.id].aboveExpected!>0?"+":"")+number(intelligence[t.id].aboveExpected)}</td><td>{intelligence[t.id]?.ppgPercentile==null?"—":Math.round(intelligence[t.id].ppgPercentile!)+"th"}</td><td>{intelligence[t.id]?.valuePercentile==null?"—":Math.round(intelligence[t.id].valuePercentile!)+"th"}</td></tr>)}</tbody></table></div>
+    <div className="mobile-rankings" aria-label="Mobile leaderboard cards">
+      {filtered.map((t,i)=><button type="button" className="rank-card" key={t.id}
+        onClick={()=>{setSelected(t.id);setQuery("");setView("trends");}}
+        aria-label={"View "+t.name+" trends"}>
+        <span className="rank-card-top"><span className="rank-card-rank">{String(i+1).padStart(2,"0")}</span>
+          <span className="rank-card-name">{(badgeUrls as Record<string,string>)[t.id]&&<img alt="" loading="lazy"
+            src={(badgeUrls as Record<string,string>)[t.id]} onError={e=>{e.currentTarget.style.display="none";}}/>}
+            <strong>{t.name}</strong><small>{LEAGUES.find(l=>l.code===t.league)?.name}</small></span>
+          <span className="rank-card-arrow" aria-hidden="true">↗</span>
+        </span>
+        <span className="rank-card-values">
+          <span><small>Value Index</small><strong>{number(t.valueIndex)}</strong></span>
+          <span><small>Points / match</small><strong>{t.played?(t.points/t.played).toFixed(2):"—"}</strong></span>
+          <span><small>Over expected</small><strong className={intelligence[t.id]?.aboveExpected!=null?(intelligence[t.id].aboveExpected!>=0?"pos":"neg"):""}>{intelligence[t.id]?.aboveExpected==null?"—":(intelligence[t.id].aboveExpected!>0?"+":"")+number(intelligence[t.id].aboveExpected)}</strong></span>
+        </span>
+      </button>)}
+    </div>
+<footer className="table-footer">{filtered.length} clubs · {qualified.length} with entered squad values · * fewer than 10 completed games. Scores are computed from domestic league fixtures only. Overperformance requires 8 valued league peers; percentiles are within each league.</footer></section>}
+    <footer className="bottom"><details className="methodology"><summary>Methodology, sources & limitations</summary><span>VALUE INDEX METHODOLOGY</span><p>Adjusted Index = 100 × [75% × points share + 25% × goal-difference score] × √(league median squad value / club squad value). GD score = clamp(0.5 + goals-per-game difference ÷ 6, 0, 1). Missing valuations do not receive a value rank. League medians are recalculated from clubs with supplied values.</p><p className="muted">Results: OpenFootball public-domain match feed, which can be delayed or incomplete. Market values: dated, manually verified snapshots (not live valuations). Results refresh on an hourly cache; do not treat these as in-play scores. Last successful browser check: {latestLoaded?new Date(latestLoaded).toLocaleString("en-GB"):"pending"}.</p></details></footer>
   </main>;
 }

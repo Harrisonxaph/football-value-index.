@@ -162,3 +162,21 @@ All 96 clubs in the 2026/27 OpenFootball files have an explicitly checked crest 
 Badges load externally in users' browsers and may be unavailable if their network blocks GitHub images or a source file fails. In that case the chart retains its coloured marker and the full accessible club label; users can always switch back to **Dots**. No API keys or external JS packages are needed.
 
 To run the mapping tests: `npm test`. To build: `npm run build`. This is a UI-only change and does not alter any valuations, point calculations or the current known match-data freshness issue.
+
+
+## Chart-first dashboard redesign (mobile-first)
+
+The interface now uses a calmer midnight-blue/green palette, more whitespace and a **four-view navigation** rather than stacking all analytics into one long mobile page. This change keeps the existing analytics formulas, historical valuation JSON and source URLs intact.
+
+- **Overview:** the most prominent component is Value vs Performance with real club crest markers (and the existing Badges/Dots switch), followed by the selected club's small spotlight. Three compact contextual KPIs show club coverage, historical-value coverage and best Value Index.
+- **Rankings:** the full sortable leaderboard remains on desktop, with a stacked, tap-to-explore **mobile card layout** replacing horizontal-scrolling tables on small screens. Tapping a club card opens its **Trends** view.
+- **Trends:** the existing date-aligned rolling form comparison and Value Intelligence cards are available together.
+- **Compare:** the existing two-club selector, side-by-side metrics and match-sequence chart are preserved.
+- A **persistent section tab bar on mobile** and a **focus-club dropdown** make it possible to navigate from one feature to another without scrolling through unrelated sections.
+- Data-quality warnings remain visible in a compact summary, with **expandable source-by-source details** (rather than enormous notices that push the graph down).
+- The full formula, valuation provenance and limitations are preserved behind an expandable **Methodology, sources & limitations** section.
+- Chart badges are slightly larger, and phone users receive a swipe hint to access the full scatter. Keyboard selection and badge/dot fallback behaviour remain.
+
+**Data integrity:** no football scores, valuations, reference rates or backend calculations were changed in this redesign. The project still uses OpenFootball and an archived historical valuation snapshot. The incomplete results warning is intentionally retained. For release, verify navigation, actual badge rendering and Safari mobile layout on the Vercel preview after GitHub Actions passes. GitHub Actions checks compilation and unit tests but do not replace a real-device visual test.
+
+The redesign is intentionally **zero-dependency and free-tier compatible**; no design framework, chart library, API key, paid icon pack or extra service was installed.
