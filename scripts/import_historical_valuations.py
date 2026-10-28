@@ -109,7 +109,7 @@ def build(clubs, teams, player_values):
           "valueEurM":value_eur,
           "asOf":SNAPSHOT,
           "dateBasis":"archive snapshot; individual club valuation date not supplied",
-          "source":f"dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; {len(squad)} players linked via current_club_id={row['club_id']}; archive snapshot {SNAPSHOT} (NOT verified date of club valuation); latest individual player valuation anywhere {PLAYER_CUTOFF}; values in EUR, no FX conversion"
+          "source":f"dcaribou/transfermarkt-datasets players.csv.gz + clubs.csv.gz; sum of {len(squad)} positive-value players with last_season>=2025 linked via current_club_id={row['club_id']}; archive snapshot {SNAPSHOT} (NOT verified date of club valuation); latest individual player valuation anywhere {PLAYER_CUTOFF}; values in EUR"
         }
         included.append({"id":club_id,"sourceClubId":row["club_id"],"sourceClub":row.get("name"),"last_season":row.get("last_season"),"match":method,"valuedPlayers":len(squad),"valueEurM":value_eur})
     return dict(sorted(result.items())), {"snapshotDate":SNAPSHOT,"snapshotDateIsIndividualClubValuationDate":False,
@@ -127,7 +127,7 @@ def main():
             v=float(str(p.get("market_value_in_eur","")).replace(",",""))
         except (TypeError,ValueError):
             continue
-        if 0 < v < 400_000_000 and p.get("current_club_id") and p.get("current_club_id") != "-1":
+        if 0 < v < 400_000_000 and year(p.get("last_season")) >= 2025 and p.get("current_club_id") and p.get("current_club_id") != "-1":
             player_values.setdefault(str(p["current_club_id"]), []).append(v)
     print("Player source columns:", list(raw_players[0]) if raw_players else [])
     print("Archive players:",len(raw_players),"clubs with positive player values:",len(player_values))
