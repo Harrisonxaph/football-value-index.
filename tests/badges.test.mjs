@@ -25,5 +25,5 @@ test("club-name exceptions map to distinct, intended crests",()=>{
  assert.match(badges["SA:FC Internazionale Milano"],/Inter\.svg$/);
  assert.match(badges["SA:AC Milan"],/Milan\.svg$/);
  assert.match(badges["BL1:1. FC Köln"],/Cologne\.svg$/);
- assert.match(badges["FL1:Paris Saint-Germain FC"],/Paris_Saint-Germain_\%28PSG\%29\.svg$/);
+ assert.match(badges["FL1:Paris Saint-Germain FC"],/Paris_Saint-Germain_\(PSG\)\.svg$/);
 });
