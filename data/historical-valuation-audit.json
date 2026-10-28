@@ -11,8 +11,8 @@
       "sourceClub": "AFC Bournemouth",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 73,
-      "valueEurM": 564.75
+      "valuedPlayers": 31,
+      "valueEurM": 541.1
     },
     {
       "id": "PL:Arsenal FC",
@@ -20,8 +20,8 @@
       "sourceClub": "Arsenal FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 66,
-      "valueEurM": 1320.25
+      "valuedPlayers": 28,
+      "valueEurM": 1281.05
     },
     {
       "id": "PL:Aston Villa FC",
@@ -29,8 +29,8 @@
       "sourceClub": "Aston Villa",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 87,
-      "valueEurM": 515.75
+      "valuedPlayers": 27,
+      "valueEurM": 464.7
     },
     {
       "id": "PL:Brentford FC",
@@ -38,8 +38,8 @@
       "sourceClub": "Brentford FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 44,
-      "valueEurM": 498.23
+      "valuedPlayers": 32,
+      "valueEurM": 487.57
     },
     {
       "id": "PL:Brighton & Hove Albion FC",
@@ -47,8 +47,8 @@
       "sourceClub": "Brighton & Hove Albion",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 73,
-      "valueEurM": 575.3
+      "valuedPlayers": 33,
+      "valueEurM": 530.6
     },
     {
       "id": "PL:Chelsea FC",
@@ -56,8 +56,8 @@
       "sourceClub": "Chelsea FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 74,
-      "valueEurM": 1199.92
+      "valuedPlayers": 35,
+      "valueEurM": 1166.1
     },
     {
       "id": "PL:Crystal Palace FC",
@@ -65,8 +65,8 @@
       "sourceClub": "Crystal Palace",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 96,
-      "valueEurM": 463.54
+      "valuedPlayers": 26,
+      "valueEurM": 435.2
     },
     {
       "id": "PL:Everton FC",
@@ -74,8 +74,8 @@
       "sourceClub": "Everton FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 64,
-      "valueEurM": 463.48
+      "valuedPlayers": 28,
+      "valueEurM": 438.6
     },
     {
       "id": "PL:Fulham FC",
@@ -83,8 +83,8 @@
       "sourceClub": "Fulham FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 58,
-      "valueEurM": 326.55
+      "valuedPlayers": 22,
+      "valueEurM": 285.2
     },
     {
       "id": "PL:Leeds United FC",
@@ -92,8 +92,8 @@
       "sourceClub": "Leeds United",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 49,
-      "valueEurM": 401.3
+      "valuedPlayers": 27,
+      "valueEurM": 361.3
     },
     {
       "id": "PL:Liverpool FC",
@@ -101,8 +101,8 @@
       "sourceClub": "Liverpool FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 69,
-      "valueEurM": 1016.15
+      "valuedPlayers": 35,
+      "valueEurM": 980.1
     },
     {
       "id": "PL:Manchester City FC",
@@ -110,8 +110,8 @@
       "sourceClub": "Manchester City",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 57,
-      "valueEurM": 1407.97
+      "valuedPlayers": 33,
+      "valueEurM": 1383.8
     },
     {
       "id": "PL:Manchester United FC",
@@ -119,8 +119,8 @@
       "sourceClub": "Manchester United",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 64,
-      "valueEurM": 760.75
+      "valuedPlayers": 28,
+      "valueEurM": 722.6
     },
     {
       "id": "PL:Newcastle United FC",
@@ -128,8 +128,8 @@
       "sourceClub": "Newcastle United",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 66,
-      "valueEurM": 714.5
+      "valuedPlayers": 32,
+      "valueEurM": 698.65
     },
     {
       "id": "PL:Nottingham Forest FC",
@@ -137,8 +137,8 @@
       "sourceClub": "Nottingham Forest",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 42,
-      "valueEurM": 555.12
+      "valuedPlayers": 25,
+      "valueEurM": 534.8
     },
     {
       "id": "PL:Sunderland AFC",
@@ -146,8 +146,8 @@
       "sourceClub": "Sunderland AFC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 70,
-      "valueEurM": 407.62
+      "valuedPlayers": 31,
+      "valueEurM": 382.62
     },
     {
       "id": "PL:Tottenham Hotspur FC",
@@ -155,8 +155,8 @@
       "sourceClub": "Tottenham Hotspur",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 56,
-      "valueEurM": 767.85
+      "valuedPlayers": 33,
+      "valueEurM": 755.2
     },
     {
       "id": "PD:CA Osasuna",
@@ -164,8 +164,8 @@
       "sourceClub": "CA Osasuna",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 93,
-      "valueEurM": 131.38
+      "valuedPlayers": 28,
+      "valueEurM": 102.12
     },
     {
       "id": "PD:Club Atlético de Madrid",
@@ -173,8 +173,8 @@
       "sourceClub": "Atlético de Madrid",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 81,
-      "valueEurM": 518.7
+      "valuedPlayers": 26,
+      "valueEurM": 497.9
     },
     {
       "id": "PD:Deportivo Alavés",
@@ -182,8 +182,8 @@
       "sourceClub": "Deportivo Alavés",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 70,
-      "valueEurM": 95.05
+      "valuedPlayers": 26,
+      "valueEurM": 74.0
     },
     {
       "id": "PD:Elche CF",
@@ -191,8 +191,8 @@
       "sourceClub": "Elche CF",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 70,
-      "valueEurM": 126.8
+      "valuedPlayers": 27,
+      "valueEurM": 110.62
     },
     {
       "id": "PD:FC Barcelona",
@@ -200,8 +200,8 @@
       "sourceClub": "FC Barcelona",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 47,
-      "valueEurM": 1199.08
+      "valuedPlayers": 28,
+      "valueEurM": 1170.3
     },
     {
       "id": "PD:Getafe CF",
@@ -209,8 +209,8 @@
       "sourceClub": "Getafe CF",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 101,
-      "valueEurM": 109.6
+      "valuedPlayers": 33,
+      "valueEurM": 88.28
     },
     {
       "id": "PD:Levante UD",
@@ -218,8 +218,8 @@
       "sourceClub": "Levante UD",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 86,
-      "valueEurM": 128.07
+      "valuedPlayers": 31,
+      "valueEurM": 113.15
     },
     {
       "id": "PD:RC Celta de Vigo",
@@ -227,8 +227,8 @@
       "sourceClub": "Celta de Vigo",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 84,
-      "valueEurM": 213.35
+      "valuedPlayers": 29,
+      "valueEurM": 190.0
     },
     {
       "id": "PD:RCD Espanyol de Barcelona",
@@ -236,8 +236,8 @@
       "sourceClub": "RCD Espanyol Barcelona",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 87,
-      "valueEurM": 165.3
+      "valuedPlayers": 26,
+      "valueEurM": 122.3
     },
     {
       "id": "PD:Rayo Vallecano de Madrid",
@@ -245,8 +245,8 @@
       "sourceClub": "Rayo Vallecano",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 90,
-      "valueEurM": 109.35
+      "valuedPlayers": 27,
+      "valueEurM": 89.53
     },
     {
       "id": "PD:Real Betis Balompié",
@@ -254,8 +254,8 @@
       "sourceClub": "Real Betis Balompié",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 104,
-      "valueEurM": 267.77
+      "valuedPlayers": 30,
+      "valueEurM": 231.53
     },
     {
       "id": "PD:Real Madrid CF",
@@ -263,8 +263,8 @@
       "sourceClub": "Real Madrid",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 50,
-      "valueEurM": 1289.53
+      "valuedPlayers": 32,
+      "valueEurM": 1262.05
     },
     {
       "id": "PD:Real Sociedad de Fútbol",
@@ -272,8 +272,8 @@
       "sourceClub": "Real Sociedad",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 69,
-      "valueEurM": 280.77
+      "valuedPlayers": 30,
+      "valueEurM": 250.0
     },
     {
       "id": "PD:Sevilla FC",
@@ -281,8 +281,8 @@
       "sourceClub": "Sevilla FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 73,
-      "valueEurM": 192.68
+      "valuedPlayers": 32,
+      "valueEurM": 165.15
     },
     {
       "id": "PD:Valencia CF",
@@ -290,8 +290,8 @@
       "sourceClub": "Valencia CF",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 67,
-      "valueEurM": 136.05
+      "valuedPlayers": 29,
+      "valueEurM": 115.97
     },
     {
       "id": "PD:Villarreal CF",
@@ -299,8 +299,8 @@
       "sourceClub": "Villarreal CF",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 74,
-      "valueEurM": 384.9
+      "valuedPlayers": 35,
+      "valueEurM": 356.8
     },
     {
       "id": "SA:AC Milan",
@@ -308,8 +308,8 @@
       "sourceClub": "AC Milan",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 87,
-      "valueEurM": 486.82
+      "valuedPlayers": 25,
+      "valueEurM": 462.0
     },
     {
       "id": "SA:ACF Fiorentina",
@@ -317,8 +317,8 @@
       "sourceClub": "ACF Fiorentina",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 98,
-      "valueEurM": 269.81
+      "valuedPlayers": 30,
+      "valueEurM": 223.62
     },
     {
       "id": "SA:Atalanta BC",
@@ -326,8 +326,8 @@
       "sourceClub": "Atalanta BC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 145,
-      "valueEurM": 444.15
+      "valuedPlayers": 27,
+      "valueEurM": 412.85
     },
     {
       "id": "SA:Bologna FC 1909",
@@ -335,8 +335,8 @@
       "sourceClub": "Bologna Football Club 1909",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 133,
-      "valueEurM": 276.07
+      "valuedPlayers": 30,
+      "valueEurM": 251.0
     },
     {
       "id": "SA:Cagliari Calcio",
@@ -344,8 +344,8 @@
       "sourceClub": "Cagliari Calcio",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 122,
-      "valueEurM": 172.34
+      "valuedPlayers": 34,
+      "valueEurM": 149.7
     },
     {
       "id": "SA:Como 1907",
@@ -353,8 +353,8 @@
       "sourceClub": "Como 1907",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 48,
-      "valueEurM": 423.25
+      "valuedPlayers": 31,
+      "valueEurM": 395.45
     },
     {
       "id": "SA:FC Internazionale Milano",
@@ -362,8 +362,8 @@
       "sourceClub": "Inter Milan",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 110,
-      "valueEurM": 644.41
+      "valuedPlayers": 31,
+      "valueEurM": 618.95
     },
     {
       "id": "SA:Genoa CFC",
@@ -371,8 +371,8 @@
       "sourceClub": "Genoa CFC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 144,
-      "valueEurM": 169.17
+      "valuedPlayers": 25,
+      "valueEurM": 140.2
     },
     {
       "id": "SA:Juventus FC",
@@ -380,8 +380,8 @@
       "sourceClub": "Juventus FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 94,
-      "valueEurM": 566.28
+      "valuedPlayers": 31,
+      "valueEurM": 535.23
     },
     {
       "id": "SA:Parma Calcio 1913",
@@ -389,8 +389,8 @@
       "sourceClub": "Parma Calcio 1913",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 127,
-      "valueEurM": 167.28
+      "valuedPlayers": 26,
+      "valueEurM": 143.45
     },
     {
       "id": "SA:SSC Napoli",
@@ -398,8 +398,8 @@
       "sourceClub": "SSC Napoli",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 93,
-      "valueEurM": 477.06
+      "valuedPlayers": 34,
+      "valueEurM": 456.1
     },
     {
       "id": "SA:Torino FC",
@@ -407,8 +407,8 @@
       "sourceClub": "Torino FC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 136,
-      "valueEurM": 196.19
+      "valuedPlayers": 35,
+      "valueEurM": 141.2
     },
     {
       "id": "SA:US Lecce",
@@ -416,8 +416,8 @@
       "sourceClub": "US Lecce",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 70,
-      "valueEurM": 146.68
+      "valuedPlayers": 32,
+      "valueEurM": 124.97
     },
     {
       "id": "SA:US Sassuolo Calcio",
@@ -425,8 +425,8 @@
       "sourceClub": "US Sassuolo",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 124,
-      "valueEurM": 221.87
+      "valuedPlayers": 34,
+      "valueEurM": 195.95
     },
     {
       "id": "SA:Udinese Calcio",
@@ -434,8 +434,8 @@
       "sourceClub": "Udinese Calcio",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 136,
-      "valueEurM": 212.75
+      "valuedPlayers": 29,
+      "valueEurM": 181.0
     },
     {
       "id": "BL1:1. FC Köln",
@@ -443,8 +443,8 @@
       "sourceClub": "1.FC Köln",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 71,
-      "valueEurM": 175.35
+      "valuedPlayers": 30,
+      "valueEurM": 154.05
     },
     {
       "id": "BL1:1. FC Union Berlin",
@@ -452,8 +452,8 @@
       "sourceClub": "1.FC Union Berlin",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 64,
-      "valueEurM": 148.06
+      "valuedPlayers": 29,
+      "valueEurM": 129.8
     },
     {
       "id": "BL1:1. FSV Mainz 05",
@@ -461,8 +461,8 @@
       "sourceClub": "1.FSV Mainz 05",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 84,
-      "valueEurM": 164.38
+      "valuedPlayers": 27,
+      "valueEurM": 143.5
     },
     {
       "id": "BL1:Bayer 04 Leverkusen",
@@ -470,8 +470,8 @@
       "sourceClub": "Bayer 04 Leverkusen",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 67,
-      "valueEurM": 454.42
+      "valuedPlayers": 28,
+      "valueEurM": 426.55
     },
     {
       "id": "BL1:Borussia Dortmund",
@@ -479,8 +479,8 @@
       "sourceClub": "Borussia Dortmund",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 70,
-      "valueEurM": 537.08
+      "valuedPlayers": 33,
+      "valueEurM": 519.25
     },
     {
       "id": "BL1:Borussia Mönchengladbach",
@@ -488,8 +488,8 @@
       "sourceClub": "Borussia Mönchengladbach",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 72,
-      "valueEurM": 175.68
+      "valuedPlayers": 28,
+      "valueEurM": 154.2
     },
     {
       "id": "BL1:Eintracht Frankfurt",
@@ -497,8 +497,8 @@
       "sourceClub": "Eintracht Frankfurt",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 110,
-      "valueEurM": 423.44
+      "valuedPlayers": 27,
+      "valueEurM": 373.55
     },
     {
       "id": "BL1:FC Augsburg",
@@ -506,8 +506,8 @@
       "sourceClub": "FC Augsburg",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 97,
-      "valueEurM": 174.6
+      "valuedPlayers": 29,
+      "valueEurM": 149.35
     },
     {
       "id": "BL1:FC Bayern München",
@@ -515,8 +515,8 @@
       "sourceClub": "Bayern Munich",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 63,
-      "valueEurM": 1011.73
+      "valuedPlayers": 28,
+      "valueEurM": 974.65
     },
     {
       "id": "BL1:Hamburger SV",
@@ -524,8 +524,8 @@
       "sourceClub": "Hamburger SV",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 62,
-      "valueEurM": 134.72
+      "valuedPlayers": 33,
+      "valueEurM": 124.3
     },
     {
       "id": "BL1:RB Leipzig",
@@ -533,8 +533,8 @@
       "sourceClub": "RB Leipzig",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 55,
-      "valueEurM": 584.17
+      "valuedPlayers": 35,
+      "valueEurM": 577.55
     },
     {
       "id": "BL1:SC Freiburg",
@@ -542,8 +542,8 @@
       "sourceClub": "SC Freiburg",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 74,
-      "valueEurM": 267.2
+      "valuedPlayers": 28,
+      "valueEurM": 248.47
     },
     {
       "id": "BL1:SV Werder Bremen",
@@ -551,8 +551,8 @@
       "sourceClub": "SV Werder Bremen",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 86,
-      "valueEurM": 200.12
+      "valuedPlayers": 34,
+      "valueEurM": 178.2
     },
     {
       "id": "BL1:TSG 1899 Hoffenheim",
@@ -560,8 +560,8 @@
       "sourceClub": "TSG 1899 Hoffenheim",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 81,
-      "valueEurM": 311.52
+      "valuedPlayers": 33,
+      "valueEurM": 277.8
     },
     {
       "id": "BL1:VfB Stuttgart",
@@ -569,8 +569,8 @@
       "sourceClub": "VfB Stuttgart",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 81,
-      "valueEurM": 431.52
+      "valuedPlayers": 32,
+      "valueEurM": 406.9
     },
     {
       "id": "FL1:AJ Auxerre",
@@ -578,8 +578,8 @@
       "sourceClub": "AJ Auxerre",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 53,
-      "valueEurM": 128.85
+      "valuedPlayers": 31,
+      "valueEurM": 119.8
     },
     {
       "id": "FL1:AS Monaco FC",
@@ -587,8 +587,8 @@
       "sourceClub": "AS Monaco",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 65,
-      "valueEurM": 409.1
+      "valuedPlayers": 26,
+      "valueEurM": 369.25
     },
     {
       "id": "FL1:Angers SCO",
@@ -596,8 +596,8 @@
       "sourceClub": "Angers SCO",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 81,
-      "valueEurM": 123.42
+      "valuedPlayers": 25,
+      "valueEurM": 94.3
     },
     {
       "id": "FL1:FC Lorient",
@@ -605,8 +605,8 @@
       "sourceClub": "FC Lorient",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 88,
-      "valueEurM": 166.7
+      "valuedPlayers": 27,
+      "valueEurM": 130.75
     },
     {
       "id": "FL1:Le Havre AC",
@@ -614,8 +614,8 @@
       "sourceClub": "Le Havre AC",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 42,
-      "valueEurM": 85.8
+      "valuedPlayers": 30,
+      "valueEurM": 76.4
     },
     {
       "id": "FL1:OGC Nice",
@@ -623,8 +623,8 @@
       "sourceClub": "OGC Nice",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 82,
-      "valueEurM": 209.22
+      "valuedPlayers": 31,
+      "valueEurM": 181.75
     },
     {
       "id": "FL1:Olympique de Marseille",
@@ -632,8 +632,8 @@
       "sourceClub": "Olympique Marseille",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 82,
-      "valueEurM": 497.15
+      "valuedPlayers": 37,
+      "valueEurM": 483.75
     },
     {
       "id": "FL1:Paris FC",
@@ -650,8 +650,8 @@
       "sourceClub": "Paris Saint-Germain",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 52,
-      "valueEurM": 1407.05
+      "valuedPlayers": 24,
+      "valueEurM": 1363.0
     },
     {
       "id": "FL1:RC Strasbourg Alsace",
@@ -659,8 +659,8 @@
       "sourceClub": "RC Strasbourg Alsace",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 67,
-      "valueEurM": 416.77
+      "valuedPlayers": 29,
+      "valueEurM": 398.0
     },
     {
       "id": "FL1:Racing Club de Lens",
@@ -668,8 +668,8 @@
       "sourceClub": "RC Lens",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 64,
-      "valueEurM": 254.55
+      "valuedPlayers": 26,
+      "valueEurM": 239.4
     },
     {
       "id": "FL1:Stade Brestois 29",
@@ -677,8 +677,8 @@
       "sourceClub": "Stade Brestois 29",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 70,
-      "valueEurM": 113.7
+      "valuedPlayers": 27,
+      "valueEurM": 94.85
     },
     {
       "id": "FL1:Toulouse FC",
@@ -686,8 +686,8 @@
       "sourceClub": "FC Toulouse",
       "last_season": "2025",
       "match": "exact",
-      "valuedPlayers": 74,
-      "valueEurM": 173.96
+      "valuedPlayers": 24,
+      "valueEurM": 155.0
     }
   ],
   "unmatched": [
