@@ -33,3 +33,62 @@
  .trend-summary strong{font-size:22px}
  .trend-legend{gap:11px}
 }
+
+/* Intelligence: financial peer estimates and league percentiles */
+.intelligence-panel,.compare-panel{margin-bottom:14px}
+.intelligence-pill{border:1px solid #7c7043;background:#353524;color:#edcf8e;font-size:11px;padding:9px 12px;border-radius:18px;line-height:1.4}
+.intelligence-intro{font-size:12px;line-height:1.65;max-width:750px}
+.intelligence-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0 17px}
+.intelligence-stats>div{background:#1b3228;border:1px solid #365346;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:7px}
+.intelligence-stats span{font-size:11px;color:#b5c5b9}
+.intelligence-stats strong{font-size:32px;line-height:1.1;color:#eaf2ec}
+.intelligence-stats small{font-size:11px;color:#a9baaf}
+.intelligence-stats .trend-pos,.compare-leader{color:#b8f26c!important}
+.intelligence-stats .trend-neg{color:#ee9fa4}
+.intelligence-ranks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.intelligence-percentile{border:1px solid #324b40;border-radius:10px;padding:17px;background:#172a22}
+.intelligence-percentile>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.intelligence-percentile span{font-size:12px;color:#b7c8ba}
+.intelligence-percentile strong{font-size:24px}
+.intelligence-track{height:9px;background:#33473a;border-radius:9px;margin:16px 0 10px;overflow:hidden}
+.intelligence-track span{display:block;height:100%;background:#b8f26c;border-radius:9px}
+.intelligence-percentile small{font-size:10px;color:#a8b9ac}
+.intelligence-leader{background:#24362a;border-radius:8px;padding:14px;font-size:12px;line-height:1.6;color:#e2eee0}
+.intelligence-leader span{color:#a9bdaf}
+.intelligence-explain{padding:12px;border:1px solid #67593d;background:#343021;border-radius:9px}
+.compare-caption{font-size:12px}
+.compare-selectors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}
+.compare-selectors label{display:flex;flex-direction:column;gap:8px;min-width:0}
+.compare-selectors label>span{font-size:12px;color:#aec0b0;font-weight:700}
+.compare-selectors select{width:100%;min-width:0;background:#1b3328;border:1px solid #47634d;color:#e2eee5;border-radius:8px;padding:13px 12px;font-size:13px}
+.compare-selectors small{font-size:11px;color:#9eb4a4}
+.compare-columns,.compare-line{display:grid;grid-template-columns:minmax(0,1fr) minmax(110px,1.2fr) minmax(0,1fr);gap:12px;align-items:center;text-align:center}
+.compare-columns{color:#b8f26c;font-weight:750;font-size:13px;padding:13px 5px;border-bottom:1px solid #405d4d}
+.compare-columns span:nth-child(2){font-size:11px;color:#a4b9aa}
+.compare-line{padding:13px 5px;border-bottom:1px solid #30453a}
+.compare-line strong{font-size:19px;overflow-wrap:anywhere}
+.compare-line>div{display:flex;flex-direction:column;gap:5px}
+.compare-line b{font-size:12px;font-weight:600}
+.compare-line small{font-size:10px;color:#9cb3a1;line-height:1.4}
+.compare-form-title{font-size:17px;margin:25px 0 10px}
+.compare-trend{overflow:hidden}
+.compare-trend svg{display:block;width:100%;height:auto;max-height:280px}
+.compare-legend{display:flex;flex-wrap:wrap;gap:15px;margin:12px 0}
+.compare-legend span{font-size:11px;color:#b5c8ba;display:flex;align-items:center;gap:7px}
+.compare-legend i{height:4px;width:22px;border-radius:3px;display:inline-block}
+.compare-legend .first{background:#B8F26C}
+.compare-legend .second{background:#97A9FF}
+@media(max-width:670px){
+  .intelligence-pill{font-size:10px}
+  .intelligence-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .intelligence-stats>div{padding:12px 8px}
+  .intelligence-stats strong{font-size:23px}
+  .intelligence-stats span{font-size:10px}
+  .intelligence-ranks{grid-template-columns:1fr}
+  .compare-selectors{grid-template-columns:1fr}
+  .compare-columns,.compare-line{grid-template-columns:minmax(0,1fr) minmax(110px,1.5fr) minmax(0,1fr);gap:5px}
+  .compare-line strong{font-size:16px}
+  .compare-line b{font-size:11px}
+  .compare-trend{overflow-x:auto}
+  .compare-trend svg{min-width:450px}
+}
