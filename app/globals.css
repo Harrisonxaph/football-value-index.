@@ -92,3 +92,18 @@
   .compare-trend{overflow-x:auto}
   .compare-trend svg{min-width:450px}
 }
+
+/* Club badge markers in the value/performance scatter */
+.scatter-options{display:flex;align-items:flex-end;flex-direction:column;gap:10px}
+.scatter-options>.muted{font-size:11px;text-align:right}
+.scatter-mode{display:flex;align-items:center;border:1px solid #4a705a;border-radius:9px;padding:3px;background:#1b3025}
+.scatter-mode button{font-size:11px;border:0;border-radius:6px;padding:9px 13px;color:#b8cbb8;background:transparent;white-space:nowrap}
+.scatter-mode button.active{background:#365a3f;color:#d7ffae;font-weight:700}
+.chart-point{cursor:pointer;outline:none}
+.chart-point:focus-visible circle:nth-child(3){stroke:#f6f8f4;stroke-width:3}
+.chart-point image{user-select:none}
+@media(max-width:650px){
+ .scatter-options{width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between}
+ .scatter-options>.muted{font-size:10px;text-align:left;flex:1}
+ .scatter-mode button{font-size:11px;padding:10px 12px}
+}
